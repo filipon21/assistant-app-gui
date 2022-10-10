@@ -1,0 +1,18 @@
+<ng-container *ngIf="view === 'START'">
+  <div class="container col-md-12" style="margin-top: 3%">
+    <div class="btn-group-lg">
+      <button mat-button (click)="createPhoneVisit()">Wizyta telefoniczna
+        <mat-icon>phone</mat-icon>
+      </button>
+      <button mat-button >Czat
+        <mat-icon>chat</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="view === 'WAITING'">
+  <mat-spinner></mat-spinner>
+</ng-container>
+<ng-container *ngIf="view === 'STARTED'">
+  <app-user-visit-action></app-user-visit-action>
+</ng-container>

@@ -1,5 +1,7 @@
-<div class="container mt-5">
-   <div class="card text-center" style="padding: 20px;">
-    <h1>This is Home Page</h1>
-   </div>
-</div>
+<ng-container *ngIf="viewControl === 'LOGGED'">
+  <div>Jesteś zalogowany!</div>
+</ng-container>
+
+<ng-container *ngIf="viewControl === 'LOGOUT'">
+  <app-login></app-login>
+</ng-container>

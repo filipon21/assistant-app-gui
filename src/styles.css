@@ -1,1 +1,344 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* You can create global styles to this file, and also import other style files */
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Helvetica Neue", sans-serif;
+  min-width: 1280px;
+}
+
+.round-button {
+  min-width: 90px;
+  border-radius: 10px;
+  background-color: #2bbbad;
+  font-family: 'Helvetica Neue 55 Roman', 'Helvetica Neue', sans-serif;
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  box-shadow: 1px 3px 6px 0px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px 6px 12px;
+  margin-left: 15px;
+  display: inline-block;
+  margin-top: 10px;
+  border: 0;
+  text-transform: uppercase;
+}
+mat-tab-header{
+  margin-bottom: 1rem !important;
+}
+button:hover{
+  cursor: pointer !important;
+}
+button:disabled {
+  cursor: initial !important;
+  pointer-events: all !important;
+}
+.round-button:disabled {
+  background: #DDDDDD;
+  color: #BBBBBB;
+}
+app-form-preview .mat-tab-body-content{
+  display: flex;
+  justify-content: center;
+}
+
+.circle-button {
+  padding: 0.5rem;
+  border-radius: 100%;
+  background-color: #2bbbad;
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  box-shadow: 1px 3px 6px 0px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  border: 0;
+}
+.nav-button,
+.nav-button img{
+  transition: transform cubic-bezier(.25,1.12,.64,.94) 0.2s ;
+}
+.nav-button:hover{
+  transform: scale(1.2);
+  transition: transform cubic-bezier(.25,1.12,.64,.94) 0.2s ;
+}
+.next-button.nav-button:hover img{
+  transform: translateX(10%);
+  transition: transform cubic-bezier(.25,1.12,.64,.94) 0.2s ;
+}
+.prev-button.nav-button:hover img{
+  transform: translateX(-10%);
+  transition: transform cubic-bezier(.25,1.12,.64,.94) 0.2s ;
+}
+.rectangle-button {
+  min-width: 160px;
+  height: 35px;
+  background-color: inherit;
+  border: none;
+  border-radius: 1px;
+  -moz-box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.298039215686275);
+  -webkit-box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.298039215686275);
+  box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.298039215686275);
+  font-size: 16px;
+  color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.rectangle-button:focus {
+  text-decoration: underline;
+}
+
+.rectangle-button:disabled {
+  background: #DDDDDD;
+  color: #BBBBBB;
+}
+
+.round-button:hover .rectangle-button:hover {
+  box-shadow: 2px 6px 12px 0px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.orange {
+  background-color: #FF7900;
+}
+
+.pink {
+  background-color: #aa66cc;
+}
+
+.purple {
+  background-color: #512ea8;
+}
+
+.blue {
+  background-color: #4285f4;
+}
+
+.gray {
+  background-color: #78909c;
+}
+
+.mint {
+  background-color:#2bbbad;
+}
+
+.green {
+  background: #81b214;
+}
+
+.red {
+  background: #cf1b1b;
+}
+
+.green-font {
+  color: #81b214;
+}
+
+.gray-font {
+  color: #BBBBBB;
+}
+
+.yellow-font {
+  color: #FFD800;
+}
+
+.disabled {
+  background: #DDDDDD;
+  color: #BBBBBB;
+}
+
+.gray-out{
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 5.5rem);
+  background-color: #000;
+  opacity: 5%;
+  z-index: 9999;
+}
+
+mat-spinner{
+  position:absolute !important;
+  z-index: 9999;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.table-box {
+  margin-top: 4rem;
+  position: relative;
+  width: 100%;
+  height: calc(100% - 200px);
+}
+
+.mat-row, .mat-header-row {
+  border: 1px solid #D7D7D7;
+  border-bottom: 2px solid #D7D7D7;
+}
+
+.mat-header-cell, .mat-cell {
+  font-family: 'Helvetica Neue 55 Roman', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  color: #7F7F7F;
+}
+
+mat-cell {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+mat-cell:first-of-type {
+  padding-left: 0 !important;
+}
+
+mat-header-cell {
+  display: flex;
+  justify-content: center;
+}
+
+mat-header-cell:first-of-type {
+  padding-left: 0 !important;
+}
+
+.mat-header-row {
+  height: 30px;
+  width: 100%;
+  background: #FFF;
+  -webkit-box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.mat-row:nth-child(even) {
+  background: #F8F8F8;
+}
+
+.mat-row:nth-child(odd) {
+  background: #FFFFFF;
+}
+
+.multiline-snackbar {
+  white-space: pre-wrap
+}
+
+.back-button {
+  background: #2BBBAD;
+  border-radius: 50%;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  margin-right: 40px;
+}
+
+.snackbarStyle {
+  background: #2376DB;
+  color: #fff;
+}
+
+.info-header {
+  display: inline-block;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.info-header-step{
+  font-size: 30px;
+  font-weight: 500;
+  font-family: 'Helvetica Neue 75 Bold', 'Helvetica Neue 55 Roman', 'Helvetica Neue', sans-serif;
+}
+
+.info-header-span{
+  margin-right: 10px;
+  font-family: 'Helvetica Neue 55 Roman', 'Helvetica Neue', sans-serif;
+  color: #AAAAAA;
+  text-align: left;
+}
+
+.info-header-content {
+  display: inline-block;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.info-header-data {
+  color: #FF7900;
+  font-weight: 500;
+  margin-right: 25px;
+}
+
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon {
+  color: white;
+}
+
+.mat-calendar-body-selected {
+  color: #fff;
+}
+
+.root text,
+.root tspan {
+  font: 12px Arial; }
+
+.root path {
+  fill-opacity: 0;
+  stroke-width: 2px;
+  stroke: #000; }
+
+.root circle {
+  fill: #6b6659;
+  stroke-width: 2px;
+  stroke: #000; }
+
+.anchor text, .any-character text {
+  fill: #fff; }
+
+.anchor rect, .any-character rect {
+  fill: #6b6659; }
+
+.escape text, .charset-escape text, .literal text {
+  fill: #000; }
+
+.escape rect, .charset-escape rect {
+  fill: #bada55; }
+
+.literal rect {
+  fill: #dae9e5; }
+
+.charset .charset-box {
+  fill: #cbcbba; }
+
+.subexp .subexp-label tspan,
+.charset .charset-label tspan,
+.match-fragment .repeat-label tspan {
+  font-size: 10px; }
+
+.subexp .subexp-label tspan,
+.charset .charset-label tspan {
+  dominant-baseline: text-after-edge; }
+
+.subexp .subexp-box {
+  stroke: #908c83;
+  stroke-dasharray: 6,2;
+  stroke-width: 2px;
+  fill-opacity: 0; }
+
+#svg-container-base{
+  width: 0;
+  height: 0;
+}
+
+.quote {
+  fill: #908c83; }

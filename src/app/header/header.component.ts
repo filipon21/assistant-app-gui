@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private userAuthService: UserAuthService,
     private router: Router,
-    public userService: UserService
+    public userService: UserService,
   ) {}
 
   ngOnInit(): void {}
@@ -22,8 +22,11 @@ export class HeaderComponent implements OnInit {
   }
 
   public logout() {
+    this.userService.setIsOnline('false', parseInt(this.userAuthService.getId())).subscribe((data) => {
+      console.log(data)
+    })
     this.userAuthService.clear();
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
   }
 
 }

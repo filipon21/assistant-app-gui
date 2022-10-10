@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserAuthService } from '../_services/user-auth.service';
-import { UserService } from '../_services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
+import {UserAuthService} from '../_services/user-auth.service';
+import {UserService} from '../_services/user.service';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
@@ -13,26 +14,41 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private userAuthService: UserAuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   login(loginForm: NgForm) {
     this.userService.login(loginForm.value).subscribe(
       (response: any) => {
-        this.userAuthService.setRoles(response.user.role);
+        const id = response.user.id;
+        this.userAuthService.setRoles(response.user.roles);
+        this.userAuthService.setId(id);
         this.userAuthService.setToken(response.jwtToken);
 
-        const role = response.user.role[0].roleName;
-        if (role === 'Admin') {
-          this.router.navigate(['/admin']);
+        this.userService.setIsOnline('true', parseInt(this.userAuthService.getId())).subscribe((data) => {
+          console.log(data)
+        })
+
+        const role = response.user.roles[0].roleName;
+        if (role === 'DOCTOR') {
+          this.router.navigate(['/doctor']);
+        }
+        if (role === 'ASSISTANT') {
+          this.router.navigate(['/assistant']);
         } else {
           this.router.navigate(['/user']);
         }
       },
       (error) => {
-        console.log(error);
+        this.snackBar.open("Logowanie nie powiodło się! Nieprawidłowy email lub hasło!", '', {
+          duration: 3000,
+          panelClass: ['error-snackbar', 'multiline-snackbar']
+        });
       }
     );
   }

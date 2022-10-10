@@ -1,0 +1,23 @@
+.menu-item {
+  border-radius: 12px;
+  border: none;
+}
+
+.menu-item:hover {
+  background: dodgerblue;
+  border-radius: 12px;
+  border: none;
+}
+
+.menu-item-active {
+  font-weight: bold;
+  background: darkblue;
+  border-radius: 12px;
+  border: none;
+}
+
+.menu-item-active:hover {
+  background: dimgrey;
+  border-radius: 12px;
+  border: none;
+}

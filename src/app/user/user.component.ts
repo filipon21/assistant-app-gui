@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../_services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user',
@@ -8,22 +8,23 @@ import { UserService } from '../_services/user.service';
 })
 export class UserComponent implements OnInit {
 
-  message;
-  constructor(private userService: UserService) { }
-
-  ngOnInit(): void {
-    this.forUser();
+  constructor(
+    private router: Router,
+  ) {
   }
 
-  forUser() {
-    this.userService.forUser().subscribe(
-      (response) => {
-        console.log(response);
-        this.message = response;
-      }, 
-      (error)=>{
-        console.log(error);
-      }
-    );
+  ngOnInit(): void {
+  }
+
+  goToList(){
+    this.router.navigate(['/assistant-list'])
+  }
+
+  goToHistory() {
+
+  }
+
+  goToAccount() {
+
   }
 }
