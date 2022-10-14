@@ -6,7 +6,7 @@ import {Pagination} from "../../classes/Pagination";
 import {SearchQueryUser} from "../../classes/user/SearchQueryUser";
 import {Sort} from "../../classes/Sort";
 import {interval, Subscription} from "rxjs";
-import {UserService} from "../../_services/user.service";
+import {UserApiService} from "../../_services/user-api.service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {debounceTime} from "rxjs/operators";
@@ -35,7 +35,7 @@ export class UserAssistantListComponent implements OnInit {
 
   private sub: Subscription;
 
-  constructor(private userServiceApi: UserService,
+  constructor(private userServiceApi: UserApiService,
               private router: Router,
               private formBuilder: FormBuilder,
               private snackbar: MatSnackBar,
@@ -159,11 +159,6 @@ export class UserAssistantListComponent implements OnInit {
 
   get isOnline(){
     return this.searchUser.get('isOnline')
-  }
-
-
-  toogleSearchHeader() {
-    this.isSearchBarVisibile = !this.isSearchBarVisibile;
   }
 
   calcOrderNumber(indexOfElement) {

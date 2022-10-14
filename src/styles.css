@@ -231,7 +231,7 @@ mat-header-cell:first-of-type {
 }
 
 .multiline-snackbar {
-  white-space: pre-wrap
+  white-space: pre-wrap;
 }
 
 .back-button {
@@ -246,6 +246,11 @@ mat-header-cell:first-of-type {
 .snackbarStyle {
   background: #2376DB;
   color: #fff;
+}
+
+.error-snackbar {
+  background-color: red !important;
+  color: white;
 }
 
 .info-header {

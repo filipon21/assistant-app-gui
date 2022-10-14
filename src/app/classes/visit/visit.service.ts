@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {Televisit} from "./Televisit";
+import {Visit} from "./Visit";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TelevisitService {
+export class VisitService {
 
-  private visitSource = new BehaviorSubject<Televisit>(new Televisit());
+  private visitSource = new BehaviorSubject<Visit>(new Visit());
   public currentVisit = this.visitSource.asObservable();
 
   setTemplate(visit: any) {
-    visit = new Televisit(
+    visit = new Visit(
       visit.id,
       visit.visitStatusEnum,
       visit.visitTypeEnum

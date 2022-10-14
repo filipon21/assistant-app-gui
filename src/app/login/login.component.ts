@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserAuthService} from '../_services/user-auth.service';
-import {UserService} from '../_services/user.service';
+import {UserApiService} from '../_services/user-api.service';
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -12,7 +12,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class LoginComponent implements OnInit {
   constructor(
-    private userService: UserService,
+    private userService: UserApiService,
     private userAuthService: UserAuthService,
     private router: Router,
     private snackBar: MatSnackBar
@@ -47,9 +47,14 @@ export class LoginComponent implements OnInit {
       (error) => {
         this.snackBar.open("Logowanie nie powiodło się! Nieprawidłowy email lub hasło!", '', {
           duration: 3000,
+          verticalPosition:"top",
           panelClass: ['error-snackbar', 'multiline-snackbar']
         });
       }
     );
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 }

@@ -29,6 +29,8 @@
 <!--      </mat-form-field>-->
       <mat-form-field appearance="outline">
         <mat-select [formControlName]="'isOnline'" placeholder="Wybierz" matTooltip="Wybierz dostępność">
+          <mat-option value=true (click)="this.isOnline?.reset('')">Wybierz
+          </mat-option>
           <mat-option value=true>Dostępny
           <mat-icon class="green-icon edit-icons"></mat-icon>
           </mat-option>
@@ -36,9 +38,8 @@
           <mat-icon class="red-icon edit-icons"></mat-icon>
           </mat-option>
         </mat-select>
+        <mat-icon *ngIf="!isOnline?.value" matSuffix>search</mat-icon>
       </mat-form-field>
-      <mat-icon *ngIf="isOnline?.value" matSuffix aria-label="Clear" (click)="this.isOnline?.reset('')">close</mat-icon>
-      <mat-icon *ngIf="!isOnline?.value" matSuffix>search</mat-icon>
     </div>
     <app-paginator (pageChange)="changePage($event)" (pageSizeChange)="changePageSize($event)" [page]="currentPage"
                    [pageAmount]="maxPage" [size]="'bige'">

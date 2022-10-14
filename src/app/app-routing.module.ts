@@ -11,9 +11,10 @@ import {UserAssistantListComponent} from "./user/user-assistant-list/user-assist
 import {UserHistoryComponent} from "./user/user-history/user-history.component";
 import {UserAccountComponent} from "./user/user-account/user-account.component";
 import {UserVisitComponent} from "./user/user-visit/user-visit.component";
+import {RegisterComponent} from "./register/register.component";
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'assistant', component: AssistantComponent, canActivate:[AuthGuard], data:{roles:['ASSISTANT']} },
   { path: 'user', component: UserComponent ,  canActivate:[AuthGuard], data:{roles:['USER']} },
   { path: 'assistant-list', component: UserAssistantListComponent ,  canActivate:[AuthGuard], data:{roles:['USER']} },
@@ -22,7 +23,10 @@ const routes: Routes = [
   { path: 'user-visit', component: UserVisitComponent ,  canActivate:[AuthGuard], data:{roles:['USER']} },
   { path: 'doctor', component: DoctorComponent ,  canActivate:[AuthGuard], data:{roles:['DOCTOR']} },
   { path: 'login', component: LoginComponent },
-  { path: 'forbidden', component: ForbiddenComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'forbidden', component: ForbiddenComponent },
+
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

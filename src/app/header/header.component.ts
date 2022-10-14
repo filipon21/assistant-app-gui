@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuthService } from '../_services/user-auth.service';
-import { UserService } from '../_services/user.service';
+import { UserApiService } from '../_services/user-api.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private userAuthService: UserAuthService,
     private router: Router,
-    public userService: UserService,
+    public userService: UserApiService,
   ) {}
 
   ngOnInit(): void {}
@@ -25,6 +25,10 @@ export class HeaderComponent implements OnInit {
     this.userService.setIsOnline('false', parseInt(this.userAuthService.getId())).subscribe((data) => {
       console.log(data)
     })
+    if (localStorage.getItem('visitId')){
+      this.userService.updateVisit(localStorage.getItem('visitId')).subscribe(value => {
+      })
+    }
     this.userAuthService.clear();
     this.router.navigate(['/login']);
   }

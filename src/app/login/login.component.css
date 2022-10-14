@@ -1,4 +1,11 @@
-::ng-deep .error-snackbar {
-  background-color: red !important;
-  color: white;
+.register{
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: blue;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+.big-font{
+  font-size: 1.2rem;
 }

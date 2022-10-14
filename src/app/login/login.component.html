@@ -6,7 +6,7 @@
              name="userName"
              id="userName"
              placeholder="Wprowadź email"
-             class="form-control mb-3"
+             class="form-control mb-3 big-font"
       >
 
       <input type="password"
@@ -14,12 +14,15 @@
              name="userPassword"
              id="userPassword"
              placeholder="Wprowadź hasło"
-             class="form-control mb-3"
+             class="form-control mb-3 big-font"
       >
 
       <input type="submit"
              value="Zaloguj się"
-             class="btn btn-outline-primary form-control rounded-0">
+             class="btn btn-outline-primary form-control rounded-0 big-font fw-bold">
     </form>
+    <div (click)="goToRegister()" class="register btn btn-link" >
+      Nie masz jeszcze konta? Zarejestruj się!
+    </div>
   </div>
 </div>

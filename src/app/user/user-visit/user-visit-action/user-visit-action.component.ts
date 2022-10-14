@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../../../_services/user.service";
+import {UserApiService} from "../../../_services/user-api.service";
 import {UserAuthService} from "../../../_services/user-auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Televisit} from "../../../classes/visit/Televisit";
+import {Visit} from "../../../classes/visit/Visit";
 
 @Component({
   selector: 'app-user-visit-action',
@@ -15,14 +15,14 @@ export class UserVisitActionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userApi: UserService,
+    private userApi: UserApiService,
     private authService: UserAuthService,
     private snackBar: MatSnackBar
   ) {
   }
 
   visitId: string;
-  visit: Televisit;
+  visit: Visit;
   phoneNumber: string;
 
   ngOnInit(): void {

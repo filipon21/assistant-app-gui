@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Route, Router} from "@angular/router";
-import {UserService} from "../../_services/user.service";
+import {UserApiService} from "../../_services/user-api.service";
 import {UserAuthService} from "../../_services/user-auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Televisit} from "../../classes/visit/Televisit";
+import {Visit} from "../../classes/visit/Visit";
 import {interval, Subscription} from "rxjs";
 
 @Component({
@@ -16,14 +16,14 @@ export class UserVisitComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userApi: UserService,
+    private userApi: UserApiService,
     private authService: UserAuthService,
     private snackBar: MatSnackBar
   ) { }
 
   assistantId: any;
   userId: any;
-  visit: Televisit;
+  visit: Visit;
   visitId: string;
   view: 'START' | 'WAITING' | 'STARTED' = 'START';
   visitSubscription: Subscription;
@@ -31,22 +31,22 @@ export class UserVisitComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.assistantId = this.route.snapshot.queryParamMap.get('assistantId');
     if (!this.assistantId){
-      this.assistantId = localStorage.getItem("assistantId");
-      this.visitId = localStorage.getItem('visitId');
+      // this.assistantId = localStorage.getItem("assistantId");
+      // this.visitId = localStorage.getItem('visitId');
+
       if (this.assistantId){
         console.log(this.assistantId + ' assistant id');
         console.log(this.visitId)
         this.userApi.getVisit(this.visitId).subscribe(value => {
           this.visit = value;
-          if (this.visit.televisitStatusEnum === 'WAITING'){
+          if (this.visit.visitStatusEnum === 'WAITING'){
             this.view = 'WAITING';
           }
-          if (this.visit.televisitStatusEnum ==='ENDED'){
+          if (this.visit.visitStatusEnum ==='ENDED'){
             localStorage.removeItem('assistantId');
             localStorage.removeItem('visitId');
           }
-          if (this.visit.televisitStatusEnum === 'STARTED') {
-            console.log('helo')
+          if (this.visit.visitStatusEnum === 'STARTED') {
 
             this.view = 'STARTED';
           }
@@ -86,7 +86,6 @@ export class UserVisitComponent implements OnInit, OnDestroy {
           this.view = 'WAITING';
           localStorage.setItem('visitId', JSON.stringify(value.id));
           localStorage.setItem('assistantId', this.assistantId);
-          console.log(this.visit)
         })
     }
   }
@@ -105,13 +104,13 @@ export class UserVisitComponent implements OnInit, OnDestroy {
     }
     this.userApi.getVisit(visitId).subscribe(value => {
       this.visit = value;
-      if (this.visit.televisitStatusEnum === 'STARTED') {
+      if (this.visit.visitStatusEnum === 'STARTED') {
         this.view = 'STARTED';
       }
-      if (this.visit.televisitStatusEnum === 'WAITING') {
+      if (this.visit.visitStatusEnum === 'WAITING') {
         this.view = 'WAITING';
       }
-      if (this.visit.televisitStatusEnum === 'ENDED') {
+      if (this.visit.visitStatusEnum === 'ENDED') {
         this.visit = null;
         this.snackBar.open("Zakończono wizytę", '', {
           duration: 5000,
@@ -119,7 +118,7 @@ export class UserVisitComponent implements OnInit, OnDestroy {
         });
         this.router.navigate(['/assistant-list'])
       }
-      if (this.visit.televisitStatusEnum === 'REJECTED') {
+      if (this.visit.visitStatusEnum === 'REJECTED') {
         this.visit = null;
         this.snackBar.open("Wizyta odrzucona przez asystenta", '', {
           duration: 5000,
@@ -128,7 +127,8 @@ export class UserVisitComponent implements OnInit, OnDestroy {
         this.router.navigate(['/assistant-list'])
       }
       console.log(this.visit)
-      console.log(localStorage.getItem('visitId'))
+      let date = new Date(this.visit.startTime).toISOString();
+      console.log(date)
     })
   }
 

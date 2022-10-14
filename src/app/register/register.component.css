@@ -1,0 +1,15 @@
+.mat-form-field {
+  min-width: 100%;
+}
+
+.mat-error{
+  font-size: 1rem;
+}
+
+.labels{
+  font-size: 1.5rem;
+}
+
+input{
+  font-size: 1.2rem;
+}
