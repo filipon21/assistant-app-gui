@@ -21,17 +21,18 @@ export class UserVisitActionComponent implements OnInit {
   ) {
   }
 
+  hostId: string;
   visitId: string;
   visit: Visit;
   phoneNumber: string;
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('visitId') + ' visit id')
-    this.visitId = localStorage.getItem('visitId')
+    this.hostId = this.route.snapshot.queryParamMap.get('hostId');
+    this.visitId = this.route.snapshot.queryParamMap.get('visitId');
     this.userApi.getVisit(this.visitId).subscribe(value => {
       this.visit = value;
     })
-    this.userApi.getUser(localStorage.getItem('assistantId')).subscribe(value => {
+    this.userApi.getUser(this.hostId).subscribe(value => {
       this.phoneNumber = value.phoneNumber;
     })
   }

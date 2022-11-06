@@ -133,7 +133,7 @@ app-form-preview .mat-tab-body-content{
 }
 
 .green {
-  background: #81b214;
+  background: green;
 }
 
 .red {
@@ -175,7 +175,7 @@ mat-spinner{
 }
 
 .table-box {
-  margin-top: 4rem;
+  margin-top: 1.5rem;
   position: relative;
   width: 100%;
   height: calc(100% - 200px);
@@ -190,7 +190,7 @@ mat-spinner{
   font-family: 'Helvetica Neue 55 Roman', 'Helvetica Neue', sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 16px;
+  font-size: 12.5px;
   color: #7F7F7F;
 }
 

@@ -1,5 +1,37 @@
+class Role {
+  id: string;
+  roleName: string;
+  description: string;
+
+  constructor(id?: string, roleName?: string, description?: string) {
+    this.id = id;
+    this.roleName = roleName;
+    this.description = description;
+  }
+}
+
+class Doctor {
+  id: string;
+  doctorSpecializationEnum;
+
+  constructor(id?: string, doctorSpecializationEnum?: string) {
+    this.id = id;
+    this.doctorSpecializationEnum = doctorSpecializationEnum;
+  }
+}
+
+class Assistant {
+  id: string;
+  assistantSpecializationEnum: string;
+
+  constructor(id?: string, assistantSpecializationEnum?: string) {
+    this.assistantSpecializationEnum = assistantSpecializationEnum;
+    this.id = id;
+  }
+}
+
 export class User {
-  id: number;
+  id: string;
   userName: string;
   userPassword: string;
   userFirstName: string;
@@ -11,10 +43,14 @@ export class User {
   voivodeship: string;
   country: string;
   town: string;
+  age: string;
   isOnline: boolean;
   birthday: Date;
+  roles: Role[];
+  doctor: Doctor;
+  assistant: Assistant;
 
-  constructor(id?: number, userName?: string, userFirstName?: string, userLastName?: string, phoneNumber?: string,
+  constructor(id?: string, userName?: string, userFirstName?: string, userLastName?: string, phoneNumber?: string,
               pesel?: string, isOnline?: boolean, address?: string, postalCode?: string, voivodeship?: string,
               country?: string, town?:string, birthday?: Date, userPassword?: string) {
     this.id = id;

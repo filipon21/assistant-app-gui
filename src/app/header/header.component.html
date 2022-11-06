@@ -7,13 +7,33 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-<!--        <li class="nav-item menu-item">-->
-<!--          <a class="nav-link active" aria-current="page" routerLink="/home" routerLinkActive="menu-item-active">Home</a>-->
-<!--        </li>-->
+        <!--        <li class="nav-item menu-item">-->
+        <!--          <a class="nav-link active" aria-current="page" routerLink="/home" routerLinkActive="menu-item-active">Home</a>-->
+        <!--        </li>-->
         <li class="nav-item menu-item">
-          <a class="nav-link active" aria-current="page" routerLink="/doctor" routerLinkActive="menu-item-active"
-             *ngIf="userService.roleMatch(['DOCTOR'])"
-          >Panel lekarza</a>
+          <a class="nav-link active" aria-current="page" routerLink="/worker" routerLinkActive="menu-item-active"
+             *ngIf="userService.roleMatch(['ASSISTANT', 'DOCTOR'])"
+          >Panel pracownika</a>
+        </li>
+        <li class="nav-item menu-item">
+          <a class="nav-link active" aria-current="page" routerLink="/worker-visit-appointment" routerLinkActive="menu-item-active"
+             *ngIf="userService.roleMatch(['ASSISTANT', 'DOCTOR'])"
+          >Umów wizytę</a>
+        </li>
+        <li class="nav-item menu-item">
+          <a class="nav-link active" aria-current="page" routerLink="/worker-visit-cancel" routerLinkActive="menu-item-active"
+             *ngIf="userService.roleMatch(['ASSISTANT', 'DOCTOR'])"
+          >Odwołaj wizytę pacjenta</a>
+        </li>
+        <li class="nav-item menu-item">
+          <a class="nav-link active" aria-current="page" routerLink="/worker-drugs" routerLinkActive="menu-item-active"
+             *ngIf="userService.roleMatch(['ASSISTANT', 'DOCTOR'])"
+          >Leki pacjenta</a>
+        </li>
+        <li class="nav-item menu-item">
+          <a class="nav-link active" aria-current="page" routerLink="/worker-history" routerLinkActive="menu-item-active"
+             *ngIf="userService.roleMatch(['ASSISTANT', 'DOCTOR'])"
+          >Twoja historia</a>
         </li>
         <li class="nav-item menu-item">
           <a class="nav-link active" aria-current="page" routerLink="/user" routerLinkActive="menu-item-active"
@@ -21,7 +41,8 @@
           >Panel pacjenta</a>
         </li>
         <li class="nav-item menu-item">
-          <a class="nav-link active" aria-current="page" routerLink="/assistant-list" routerLinkActive="menu-item-active"
+          <a class="nav-link active" aria-current="page" routerLink="/assistant-list"
+             routerLinkActive="menu-item-active"
              *ngIf="userService.roleMatch(['USER'])"
           >Lista asystentów</a>
         </li>
@@ -29,6 +50,11 @@
           <a class="nav-link active" aria-current="page" routerLink="/user-visit" routerLinkActive="menu-item-active"
              *ngIf="userService.roleMatch(['USER'])"
           >Aktualna telewizyta</a>
+        </li>
+        <li class="nav-item menu-item">
+          <a class="nav-link active" aria-current="page" routerLink="/user-upcoming" routerLinkActive="menu-item-active"
+             *ngIf="userService.roleMatch(['USER'])"
+          >Nadchodzące wizyty</a>
         </li>
         <li class="nav-item menu-item">
           <a class="nav-link active" aria-current="page" routerLink="/user-history" routerLinkActive="menu-item-active"
@@ -40,15 +66,16 @@
              *ngIf="userService.roleMatch(['USER'])"
           >Konto</a>
         </li>
-        <li class="nav-item menu-item">
-          <a class="nav-link active" aria-current="page" routerLink="/assistant" routerLinkActive="menu-item-active"
-             *ngIf="userService.roleMatch(['ASSISTANT'])"
-          >Panel asystenta</a>
-        </li>
-
       </ul>
-      <button mat-button *ngIf="!isLoggedIn()" type="button" class="btn btn-success" routerLink="/login">Zaloguj się</button>
-      <button mat-button *ngIf="isLoggedIn()" type="button" class="btn btn-danger" (click)="logout()">Wyloguj się</button>
+      <ng-container *ngIf="isLoggedIn()">
+        <div style="color: white; margin-right: 5px">
+          Witaj {{name}}!
+        </div>
+      </ng-container>
+      <button mat-button *ngIf="!isLoggedIn()" type="button" class="btn btn-success" routerLink="/login">Zaloguj się
+      </button>
+      <button mat-button *ngIf="isLoggedIn()" type="button" class="btn btn-danger" (click)="logout()">Wyloguj się
+      </button>
     </div>
   </div>
 </nav>

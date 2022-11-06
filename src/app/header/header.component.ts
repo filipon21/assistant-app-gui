@@ -9,26 +9,27 @@ import { UserApiService } from '../_services/user-api.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  name: string;
   constructor(
     private userAuthService: UserAuthService,
     private router: Router,
     public userService: UserApiService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.name = this.userAuthService.getName();
+  }
 
   public isLoggedIn() {
     return this.userAuthService.isLoggedIn();
   }
 
   public logout() {
-    this.userService.setIsOnline('false', parseInt(this.userAuthService.getId())).subscribe((data) => {
+    this.userService.setIsOnline('false', parseInt(this.userAuthService.getId()))
+      .subscribe((data) => {
       console.log(data)
     })
-    if (localStorage.getItem('visitId')){
-      this.userService.updateVisit(localStorage.getItem('visitId')).subscribe(value => {
-      })
-    }
+
     this.userAuthService.clear();
     this.router.navigate(['/login']);
   }

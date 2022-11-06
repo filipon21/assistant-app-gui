@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
         const id = response.user.id;
         this.userAuthService.setRoles(response.user.roles);
         this.userAuthService.setId(id);
+        this.userAuthService.setName(response.user.userFirstName + " " + response.user.userLastName);
         this.userAuthService.setToken(response.jwtToken);
 
         this.userService.setIsOnline('true', parseInt(this.userAuthService.getId())).subscribe((data) => {
@@ -36,10 +37,10 @@ export class LoginComponent implements OnInit {
 
         const role = response.user.roles[0].roleName;
         if (role === 'DOCTOR') {
-          this.router.navigate(['/doctor']);
+          this.router.navigate(['/worker']);
         }
         if (role === 'ASSISTANT') {
-          this.router.navigate(['/assistant']);
+          this.router.navigate(['/worker']);
         } else {
           this.router.navigate(['/user']);
         }

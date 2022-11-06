@@ -1,0 +1,51 @@
+<div class="container rounded bg-white" xmlns="http://www.w3.org/1999/html">
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 class="text-right">Aktualności</h1>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-2">
+            <mat-card>
+              <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+                <h2 class="text-right">Przejdź do</h2>
+              </div>
+              <div style="max-width: 94%">
+                <button (click)="goToCurrentVisit()" mat-button>
+                  Aktualna wizyta
+                  <mat-icon>assistant</mat-icon>
+                </button>
+                <button (click)="goToFindPatient()" mat-button>
+                  Umów pacjenta
+                  <mat-icon>account_circle</mat-icon>
+                </button>
+                <button (click)="goToCancelVisit()" mat-button>
+                  Odwołaj wizytę
+                  <mat-icon>cancel</mat-icon>
+                </button>
+                <button (click)="goToDrugs()"
+                        mat-button>
+                  Leki pacjenta
+                  <mat-icon>local_hospital</mat-icon>
+                </button>
+                <button (click)="goToHistory()"
+                        mat-button>
+                  Historia wizyt
+                  <mat-icon>history</mat-icon>
+                </button>
+              </div>
+            </mat-card>
+          </div>
+          <div class="col-md-10">
+            <mat-card>
+              <app-upcoming-table [userId]="userId" [displayedColumns]="displayedColumns"
+              [worker]="true">
+              </app-upcoming-table>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

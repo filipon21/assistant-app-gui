@@ -1,0 +1,31 @@
+<div class="container rounded bg-white" xmlns="http://www.w3.org/1999/html">
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        <div class="d-flex justify-content-between align-items-center mb-3" >
+          <h1 class="text-right">Odwoływanie wizyt</h1>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6" style="margin-bottom: 1rem">
+            <mat-card>
+              <mat-label><b>Znajdź użytkownika</b></mat-label>
+              <app-worker-visit-appointment-user-table (elementEvent)="chooseUserId($event)">
+              </app-worker-visit-appointment-user-table>
+            </mat-card>
+          </div>
+          <div class="col-md-6" style="margin-bottom: 1rem">
+            <mat-card>
+              <mat-label><b>Wizyty użytkownika</b></mat-label>
+              <ng-container *ngIf="this.userId">
+                <app-upcoming-table [displayedColumns]="displayedColumns"
+                                    [ifGoToVisitHide]="true" [ifHeaderOn]="false" [userId]="this.userId">
+                </app-upcoming-table>
+              </ng-container>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,13 +4,13 @@ export class SearchQueryUser {
   userFirstName: string;
   userLastName: string;
   phoneNumber: string;
-  isOnline: string;
+  pesel: string;
 
   constructor(group: FormGroup) {
     this.userFirstName = group.get('userFirstName').value;
     this.userLastName = group.get('userLastName').value;
     this.phoneNumber = group.get('phoneNumber').value;
-    this.isOnline = group.get('isOnline').value;
+    this.pesel = group.get('pesel').value;
 
   }
 }

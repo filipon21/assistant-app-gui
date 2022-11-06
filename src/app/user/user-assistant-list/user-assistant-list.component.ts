@@ -3,7 +3,7 @@ import {User} from "../../classes/user/User";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatTableDataSource} from "@angular/material/table";
 import {Pagination} from "../../classes/Pagination";
-import {SearchQueryUser} from "../../classes/user/SearchQueryUser";
+import {SearchQueryAssistant} from "../../classes/user/SearchQueryAssistant";
 import {Sort} from "../../classes/Sort";
 import {interval, Subscription} from "rxjs";
 import {UserApiService} from "../../_services/user-api.service";
@@ -23,7 +23,7 @@ export class UserAssistantListComponent implements OnInit {
   searchUser: FormGroup;
   dataSource = new MatTableDataSource(this.dataSourceTable);
   pagination: Pagination = new Pagination();
-  searchQuery: SearchQueryUser;
+  searchQuery: SearchQueryAssistant;
   currentPage: number;
   maxPage: number;
   sortObject: Sort = new Sort();
@@ -60,7 +60,7 @@ export class UserAssistantListComponent implements OnInit {
       debounceTime(700)
     ).subscribe(() => {
       if (this.validateFilters()){
-        this.searchQuery = new SearchQueryUser(this.searchUser);
+        this.searchQuery = new SearchQueryAssistant(this.searchUser);
         this.pagination.page = 0;
         this.userServiceApi.getAssistantListWithFiltering(this.pagination, this.searchQuery).subscribe(res => {
           this.dataSourceTable = res.usersPage.content;
@@ -167,7 +167,5 @@ export class UserAssistantListComponent implements OnInit {
 
   goToVisit(element: any) {
     this.router.navigate(['user-visit'], {queryParams:{assistantId: element.id}});
-    console.log(this.authService.getId())
-    console.log(element)
   }
 }

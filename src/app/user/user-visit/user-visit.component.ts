@@ -5,6 +5,8 @@ import {UserAuthService} from "../../_services/user-auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Visit} from "../../classes/visit/Visit";
 import {interval, Subscription} from "rxjs";
+import {Timestamp} from "rxjs/internal-compatibility";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-user-visit',
@@ -18,9 +20,12 @@ export class UserVisitComponent implements OnInit, OnDestroy {
     private router: Router,
     private userApi: UserApiService,
     private authService: UserAuthService,
-    private snackBar: MatSnackBar
-  ) { }
+    private snackBar: MatSnackBar,
+    private datePipe: DatePipe
+  ) {
+  }
 
+  phoneNumber: string;
   assistantId: any;
   userId: any;
   visit: Visit;
@@ -30,51 +35,25 @@ export class UserVisitComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.assistantId = this.route.snapshot.queryParamMap.get('assistantId');
-    if (!this.assistantId){
-      // this.assistantId = localStorage.getItem("assistantId");
-      // this.visitId = localStorage.getItem('visitId');
-
-      if (this.assistantId){
-        console.log(this.assistantId + ' assistant id');
-        console.log(this.visitId)
-        this.userApi.getVisit(this.visitId).subscribe(value => {
-          this.visit = value;
-          if (this.visit.visitStatusEnum === 'WAITING'){
-            this.view = 'WAITING';
-          }
-          if (this.visit.visitStatusEnum ==='ENDED'){
-            localStorage.removeItem('assistantId');
-            localStorage.removeItem('visitId');
-          }
-          if (this.visit.visitStatusEnum === 'STARTED') {
-
-            this.view = 'STARTED';
-          }
-        })
-      } else {
-        this.snackBar.open("Należy ponownie wybrać asystenta", '', {
-          duration: 5000,
-          panelClass: ['multiline-snackbar', 'snackbarStyle']
-        });
-        this.router.navigate(['/assistant-list'])
-      }
-    }
     this.userId = this.authService.getId();
 
     this.getData();
 
-    this.visitSubscription = interval(10*1000/2).subscribe(() => {
-      this.getData();
+    this.visitSubscription = interval(10 * 1000 / 2).subscribe(() => {
+        this.getData();
       }
     );
 
   }
 
-  createPhoneVisit(){
-    if (this.visit){
+  createPhoneVisit() {
+    if (this.visit) {
       return
     } else {
-      this.userApi.createVisit(this.assistantId, this.userId, 'PHONE').subscribe(
+      let now = Date.now();
+      this.userApi.createVisit(this.assistantId, this.userId, 'PHONE',
+        this.datePipe.transform(now,
+          "yyyy-MM-ddTHH:mm:ss"), 'WAITING').subscribe(
         value => {
           // this.templateService.setTemplate(value);
           // localStorage.setItem('templateId', JSON.stringify(value.id));
@@ -84,51 +63,54 @@ export class UserVisitComponent implements OnInit, OnDestroy {
             panelClass: ['multiline-snackbar', 'snackbarStyle']
           });
           this.view = 'WAITING';
-          localStorage.setItem('visitId', JSON.stringify(value.id));
-          localStorage.setItem('assistantId', this.assistantId);
+          // localStorage.setItem('visitId', JSON.stringify(value.id));
+          // localStorage.setItem('assistantId', this.assistantId);
         })
     }
   }
 
-  getData():void {
-    let visitId;
+  getData(): void {
 
-    if (!this.visit){
-      visitId = localStorage.getItem('visitId');
-    }
-    if (this.visit){
-      visitId = this.visit.id;
-    }
-    else {
-      return
-    }
-    this.userApi.getVisit(visitId).subscribe(value => {
+    this.userApi.getUserTelevisit(this.authService.getId()).subscribe(value => {
+      if (!value && !this.assistantId) {
+        this.snackBar.open("Aktualnie nie masz telewizyty lub została ona odrzucona"
+          , '', {
+            duration: 5000,
+            verticalPosition: 'top',
+            panelClass: ['multiline-snackbar', 'error-snackbar']
+          });
+        this.router.navigate(['/assistant-list'])
+      }
       this.visit = value;
       if (this.visit.visitStatusEnum === 'STARTED') {
+        console.log(value)
+        let obj = value.users
+          .find((obj => obj.roles[0].roleName !== 'USER'));
+
+        this.phoneNumber = obj.phoneNumber;
+        // this.router.navigate(['/user-current-visit'],
+        //   {queryParams:{hostId: obj.id, visitId: value.id}});
         this.view = 'STARTED';
       }
       if (this.visit.visitStatusEnum === 'WAITING') {
         this.view = 'WAITING';
       }
-      if (this.visit.visitStatusEnum === 'ENDED') {
-        this.visit = null;
-        this.snackBar.open("Zakończono wizytę", '', {
-          duration: 5000,
-          panelClass: ['multiline-snackbar', 'snackbarStyle']
-        });
-        this.router.navigate(['/assistant-list'])
-      }
-      if (this.visit.visitStatusEnum === 'REJECTED') {
-        this.visit = null;
-        this.snackBar.open("Wizyta odrzucona przez asystenta", '', {
-          duration: 5000,
-          panelClass: ['multiline-snackbar', 'snackbarStyle']
-        });
-        this.router.navigate(['/assistant-list'])
-      }
-      console.log(this.visit)
-      let date = new Date(this.visit.startTime).toISOString();
-      console.log(date)
+      // if (this.visit.visitStatusEnum === 'ENDED') {
+      //   this.visit = null;
+      //   this.snackBar.open("Zakończono telewizytę", '', {
+      //     duration: 5000,
+      //     panelClass: ['multiline-snackbar', 'snackbarStyle']
+      //   });
+      //   this.router.navigate(['/assistant-list'])
+      // }
+      // if (this.visit.visitStatusEnum === 'REJECTED') {
+      //   this.visit = null;
+      //   this.snackBar.open("Telewizyta odrzucona przez asystenta", '', {
+      //     duration: 5000,
+      //     panelClass: ['multiline-snackbar', 'snackbarStyle']
+      //   });
+      //   this.router.navigate(['/assistant-list'])
+      // }
     })
   }
 

@@ -1,5 +1,5 @@
 <ng-container *ngIf="view === 'START'">
-  <div class="container col-md-12" style="margin-top: 3%">
+  <div class="container col-md-12 margin-top">
     <div class="btn-group-lg">
       <button mat-button (click)="createPhoneVisit()">Wizyta telefoniczna
         <mat-icon>phone</mat-icon>
@@ -11,8 +11,16 @@
   </div>
 </ng-container>
 <ng-container *ngIf="view === 'WAITING'">
+  <div class="container font-size margin-top">Oczekiwanie na pracownika</div>
   <mat-spinner></mat-spinner>
 </ng-container>
 <ng-container *ngIf="view === 'STARTED'">
-  <app-user-visit-action></app-user-visit-action>
+  <ng-container *ngIf="this.visit.visitTypeEnum === 'PHONE'">
+    <div class="container mt-5 font-size" >
+      Numer pracownika: {{phoneNumber}}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="this.visit.visitTypeEnum === 'CHAT'">
+    czat
+  </ng-container>
 </ng-container>

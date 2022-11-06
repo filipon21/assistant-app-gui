@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssistantComponent } from './assistant.component';
+import { UpcomingTableComponent } from './upcoming-table.component';
 
-describe('AssistantComponent', () => {
-  let component: AssistantComponent;
-  let fixture: ComponentFixture<AssistantComponent>;
+describe('UpcomingTableComponent', () => {
+  let component: UpcomingTableComponent;
+  let fixture: ComponentFixture<UpcomingTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AssistantComponent ]
+      declarations: [ UpcomingTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AssistantComponent);
+    fixture = TestBed.createComponent(UpcomingTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

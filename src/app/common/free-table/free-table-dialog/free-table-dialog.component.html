@@ -1,0 +1,17 @@
+<mat-icon class="back-button" (click)="close()">
+  close
+</mat-icon>
+<div class="info-header-step">
+  POTWIERDŹ WIZYTĘ
+</div>
+<br>
+<div>
+  CZY NA PEWNO CHCESZ UMÓWIĆ SIĘ NA TĘ WIZYTĘ?
+</div>
+<button style="margin-right: 0.5rem" mat-button class="rectangle-button green"
+        (click)="makeAnApointment()">
+  UMÓW
+</button>
+<button mat-button class="rectangle-button red" [mat-dialog-close]>
+  ANULUJ
+</button>

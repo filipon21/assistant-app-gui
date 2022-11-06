@@ -21,10 +21,11 @@ export class UserComponent implements OnInit {
   }
 
   goToHistory() {
+    this.router.navigate(['/user-history'])
 
   }
 
   goToAccount() {
-
+    this.router.navigate(['/user-account'])
   }
 }

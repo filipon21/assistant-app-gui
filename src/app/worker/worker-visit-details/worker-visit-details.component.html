@@ -1,0 +1,95 @@
+<div class="container rounded bg-white" xmlns="http://www.w3.org/1999/html">
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        <div class="d-flex justify-content-between align-items-center mb-3" >
+          <h1 class="text-right">Aktualna wizyta</h1>
+        </div>
+
+        <form [formGroup]="formGroup">
+          <div class="row mt-2">
+            <div class="col-md-6" style="margin-bottom: 1rem">
+              <mat-card>
+                <div class="col-md-12">
+                  <mat-icon>speaker_notes</mat-icon><mat-label><b>Zalecenia</b></mat-label>
+                  <div>
+                    <mat-form-field class="text-area-size" appearance="outline">
+                      <textarea cols="60" rows="12" placeholder="Zalecenia"
+                                matInput formControlName="recommendation">
+                       </textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <mat-icon>description</mat-icon><mat-label><b>Opis wizyty</b></mat-label>
+                    <div>
+                      <mat-form-field class="text-area-size" appearance="outline">
+                      <textarea cols="60" rows="12" placeholder="Opis wizyty"
+                                matInput formControlName="description">
+                       </textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <app-worker-visit-refferal [visitId]="visitId"
+                                               [refferals]="visit?.refferals">
+                    </app-worker-visit-refferal>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <app-visit-prescription-upload [visitId]="visitId" [prescription]="visit?.prescription">
+                    </app-visit-prescription-upload>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row mt-2">
+                  <app-worker-visit-exemption [visitId]="visitId" [exemption]="visit?.exemption">
+                  </app-worker-visit-exemption>
+                </div>
+                <mat-divider></mat-divider>
+                <div>
+                  <button (click)="onSubmit()" style="margin-top: 1rem; display: flex;
+                  margin-left: auto" class="btn btn-primary" type="submit">
+                    Zakończ wizytę
+                  </button>
+                </div>
+              </mat-card>
+            </div>
+            <div class="col-md-6">
+              <mat-card style="margin-bottom: 1rem">
+                <mat-label><b>Dane pacjenta</b></mat-label>
+                <ng-container *ngIf="user">
+                  <app-worker-user-details [user]="user">
+                  </app-worker-user-details>
+                </ng-container>
+              </mat-card>
+
+              <mat-card>
+                <mat-label><b>Historia pacjenta</b></mat-label>
+               <ng-container *ngIf="userTableId">
+                 <app-history-table [userId]="userTableId"
+                                    [displayedColumns]="displayedColumns" [isHeaderOff]="true"
+                                    [biggerFont]="false" [userHistoryDetailsView]="true"
+                                    (elementEvent)="onElementClick($event)">
+                 </app-history-table>
+               </ng-container>
+              </mat-card>
+              <mat-card style="margin-top: 1rem">
+                <mat-label><b>Szczegóły wizyty</b></mat-label>
+                <app-worker-visit-user-details *ngIf="elementId">
+                </app-worker-visit-user-details>
+              </mat-card>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<mat-icon>screen_share</mat-icon><mat-label><b>Skierowania</b></mat-label>
+<form [formGroup]="form">
+
+  <mat-form-field appearance="outline" style="margin-right: 1rem">
+    <mat-select [formControlName]="'doctorSpecializationEnum'"
+                placeholder="Wybierz" matTooltip="Wybierz lekarza">
+      <mat-option value=true
+                  (click)="this.form.get('doctorSpecializationEnum')?.reset('')">
+        Wybierz
+      </mat-option>
+      <mat-option value=ORTHOPAEDIST>Ortopeda
+      </mat-option>
+      <mat-option value=NEUROLOGIST>Neurolog
+      </mat-option>
+      <mat-option value=SURGEON>Chirurg
+      </mat-option>
+      <mat-option value=OPHTHALMOLOGIST>Okulista
+      </mat-option>
+      <mat-option value=PSYCHIATRIST>Psychiatra
+      </mat-option>
+      <mat-option value=PSYCHOLOGIST>Psycholog
+      </mat-option>
+      <mat-option value=INTERNIST>Internista
+      </mat-option>
+      <mat-option value=DENTIST>Dentysta
+      </mat-option>
+      <mat-option value=DERMATOLOGIST>Dermatolog
+      </mat-option>
+      <mat-option value=CARDIOLOGIST>Kardiolog
+      </mat-option>
+    </mat-select>
+    <mat-icon *ngIf="!this.form.get('doctorSpecializationEnum')?.value" matSuffix>
+      search
+    </mat-icon>
+  </mat-form-field>
+  <button (click)="onSubmit()" [disabled]="!this.form.get('doctorSpecializationEnum')?.value" class="refferal-button" mat-button>
+    Dodaj skierowanie
+  </button>
+  <div>
+  </div>
+
+</form>
+<mat-label *ngIf="refferals?.length > 0">Wystawione skierowania</mat-label>
+<span *ngIf="refferals?.length>0">
+<button style="margin: 1rem" mat-raised-button (click)="showRefferals()">Pokaż/ukryj
+</button>
+</span>
+<ng-container *ngIf="ifRefferals">
+  <div style="margin-bottom: 1rem">
+    <ng-container *ngFor="let refferal of refferals">
+      <div *ngIf="refferals" style="margin-bottom: 1rem"
+           [class]="refferal?.status === 'COMPLETED' ? 'green' : ''">
+        <mat-icon>fiber_manual_record</mat-icon>
+        Wystawiono skierowanie do: {{refferal.doctorSpecializationEnum | workerSpecialization}}
+        <ng-container *ngIf="refferal.status === 'COMPLETED'">
+          <span class="green">(Zrealizowano<mat-icon>done</mat-icon>)</span>
+        </ng-container>
+        <ng-container *ngIf="refferal.status === 'ISSUED'">
+          <button class="red circle-button" matTooltip="Cofnij" (click)="deleteRefferal(refferal.id)">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+

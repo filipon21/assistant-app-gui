@@ -1,0 +1,12 @@
+<mat-icon class="back-button" (click)="close()">
+  close
+</mat-icon>
+<ng-container *ngIf="!userId">
+  <mat-spinner></mat-spinner>
+</ng-container>
+<ng-container *ngIf="userId">
+  <app-free-table [refferalId]="refferalId" [specialization]="specialization"
+                  [userHistoryDetailsView]="true"
+                  [displayedColumns]="displayedColumns" [userId]="userId">
+  </app-free-table>
+</ng-container>

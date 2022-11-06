@@ -1,33 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import {Visit} from "../../classes/visit/Visit";
-import {FormGroup} from "@angular/forms";
-import {MatTableDataSource} from "@angular/material/table";
-import {Pagination} from "../../classes/Pagination";
-import {Sort} from "../../classes/Sort";
-import {Subscription} from "rxjs";
+import {Component, OnInit} from '@angular/core';
+
+import {UserAuthService} from "../../_services/user-auth.service";
 
 @Component({
   selector: 'app-user-history',
   templateUrl: './user-history.component.html',
   styleUrls: ['./user-history.component.css']
 })
-export class UserHistoryComponent implements OnInit {
+export class UserHistoryComponent implements OnInit{
 
-  public dataSourceTable: Visit[] = [];
-  searchTelevisit: FormGroup;
-  dataSource = new MatTableDataSource(this.dataSourceTable);
-  pagination: Pagination = new Pagination();
-  searchQuery: SearchQueryVisit;
-  currentPage: number;
-  maxPage: number;
-  sortObject: Sort = new Sort();
-  searchSubscription: Subscription;
+  userId: string;
+  biggerFont:boolean;
+  displayedColumns: string[] = ['id', 'worker',
+    'userFirstName', 'userLastName', 'startTime', 'endTime',
+    'visitTypeEnum', 'address', 'visitStatusEnum', 'actions'];
 
-  displayedColums: string[] = ['id', '']
-
-  constructor() { }
+  constructor(private userAuthService: UserAuthService) {
+  }
 
   ngOnInit(): void {
+    this.biggerFont = true;
+    this.userId = this.userAuthService.getId();
   }
+
 
 }

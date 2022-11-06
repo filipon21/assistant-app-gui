@@ -1,0 +1,228 @@
+<div class="container rounded bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        <ng-container *ngIf="ifHeaderOn">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2 class="text-right">Nadchodzące wizyty</h2>
+          </div>
+        </ng-container>
+
+        <div class="table-box" [formGroup]="searchVisit">
+          <div>
+
+            <mat-form-field appearance="outline" style="margin-left: unset">
+              <input matInput [formControlName]="'startTime'" [ngxMatDatetimePicker]="startTimePicker"
+                     placeholder="Termin wizyty od">
+              <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #startTimePicker>
+              </ngx-mat-datetime-picker>
+            </mat-form-field>
+            <mat-icon *ngIf="this.searchVisit.get('startTime')?.value" matSuffix aria-label="Clear"
+                      (click)="this.searchVisit.get('startTime')?.reset('')">
+              close
+            </mat-icon>
+
+            <mat-form-field appearance="outline" style="max-width: 2.5rem">
+              <mat-select [formControlName]="'visitTypeEnum'" placeholder="Typ wizyty"
+                          matTooltip="Wybierz typ wizyty">
+                <mat-option (click)="this.searchVisit.get('visitTypeEnum')?.reset('')">
+                  Wybierz
+                </mat-option>
+                <mat-option value='PHONE'>Telefon
+                </mat-option>
+                <mat-option value='CHAT'>Czat
+                  <mat-icon></mat-icon>
+                </mat-option>
+                <mat-option value='STATIONARY'>Stacjonarna
+                  <mat-icon></mat-icon>
+                </mat-option>
+              </mat-select>
+              <mat-icon *ngIf="!this.searchVisit.get('visitTypeEnum')?.value" matSuffix>search</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Adres</mat-label>
+              <input matInput placeholder="Adres" [formControlName]="'address'">
+              <mat-icon *ngIf="this.searchVisit.get('address')?.value" matSuffix aria-label="Clear"
+                        (click)="this.searchVisit.get('address')?.reset('')">
+                close
+              </mat-icon>
+              <mat-icon *ngIf="!this.searchVisit.get('address')?.value" matSuffix>search</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-select [formControlName]="'visitStatusEnum'" placeholder="Status wizyty"
+                          matTooltip="Wybierz status wizyty">
+                <mat-option (click)="this.searchVisit.get('visitStatusEnum')?.reset('')">
+                  Wybierz
+                </mat-option>
+                <mat-option value='ENDED'>Zakończona
+                </mat-option>
+                <mat-option value='REJECTED'>Odrzucona
+                  <mat-icon></mat-icon>
+                </mat-option>
+                <mat-option value='CANCELLED'>Odwołana
+                  <mat-icon></mat-icon>
+                </mat-option>
+              </mat-select>
+              <mat-icon *ngIf="!this.searchVisit.get('visitStatusEnum')?.value" matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <app-paginator (pageChange)="changePage($event)" (pageSizeChange)="changePageSize($event)"
+                       [page]="currentPage"
+                       [pageAmount]="maxPage" [size]="biggerFont ? 'bige' : ''">
+        </app-paginator>
+        <mat-table [dataSource]="dataSource" multiTemplateDataRows>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell [ngClass]="biggerFont ? 'bigger-font-header' : ''" *matHeaderCellDef>
+                <span>
+                    Lp.
+                </span>
+            </mat-header-cell>
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element; let i = renderIndex">
+              {{calcOrderNumber(i)}} </mat-cell>
+          </ng-container>
+
+          <ng-container *ngIf="!worker || biggerFont" matColumnDef="worker">
+            <mat-header-cell [ngClass]="biggerFont ? 'bigger-font-header' : ''" *matHeaderCellDef>
+                <span>
+                    Pracownik
+                </span>
+            </mat-header-cell>
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element">
+              {{element.worker | workerSpecialization}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="userFirstName">
+            <mat-header-cell [ngClass]="biggerFont ? 'bigger-font-header' : ''" *matHeaderCellDef>
+                <span>
+                    Imię
+                </span>
+            </mat-header-cell>
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element">
+              {{element.userFirstName}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="userLastName">
+            <mat-header-cell [ngClass]="biggerFont ? 'bigger-font-header' : ''" *matHeaderCellDef>
+                <span>
+                    Nazwisko
+                </span>
+            </mat-header-cell>
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element">
+              {{element.userLastName}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="startTime">
+            <mat-header-cell [ngClass]="biggerFont ? 'bigger-font-header' : ''" *matHeaderCellDef
+                             (click)="sort('startTime')">
+              <span>
+              Start
+              <span *ngIf="'startTime' === this.sortObject.actualSorting">
+                    <span *ngIf="this.sortObject.sortingStatus === 'Desc'; then arrowDown else arrowUp"></span>
+                </span>
+                </span>
+            </mat-header-cell>
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element">
+              {{element.startTime}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="visitTypeEnum">
+            <mat-header-cell [ngClass]="biggerFont ? 'bigger-font-header' : ''" *matHeaderCellDef
+                             (click)="sort('visitTypeEnum')">
+                <span>
+                    Typ wizyty
+                    <span *ngIf="'visitTypeEnum' === this.sortObject.actualSorting">
+                        <span *ngIf="this.sortObject.sortingStatus === 'Desc'; then arrowDown else arrowUp"></span>
+                    </span>
+                </span>
+            </mat-header-cell>
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element">
+              {{element.visitTypeEnum | type}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="address">
+            <mat-header-cell [ngClass]="biggerFont ? 'bigger-font-header' : ''" *matHeaderCellDef
+                             (click)="sort('address')">
+                <span>
+                    Adres
+                    <span *ngIf="'address' === this.sortObject.actualSorting">
+                        <span *ngIf="this.sortObject.sortingStatus === 'Desc'; then arrowDown else arrowUp"></span>
+                    </span>
+                </span>
+            </mat-header-cell>
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element">
+              <ng-container *ngIf="element.address">
+                {{element.address}}
+              </ng-container>
+              <ng-container *ngIf="!element.address">
+                <mat-icon style="cursor: default">remove</mat-icon>
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="visitStatusEnum">
+            <mat-header-cell [ngClass]="biggerFont ? 'bigger-font-header' : ''" *matHeaderCellDef
+                             (click)="sort('visitStatusEnum')">
+                <span>
+                    Status wizyty
+                    <span *ngIf="'visitStatusEnum' === this.sortObject.actualSorting">
+                        <span *ngIf="this.sortObject.sortingStatus === 'Desc'; then arrowDown else arrowUp"></span>
+                    </span>
+                </span>
+            </mat-header-cell>
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element">
+              {{element.visitStatusEnum | status}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell [ngClass]="biggerFont ? 'bigger-font-header' : ''" *matHeaderCellDef>Akcje
+            </mat-header-cell>
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element">
+              <ng-container *ngIf="worker && element.visitStatusEnum !== 'WAITING'">
+                <button mat-button [ngStyle]="{'font-size': biggerFont ? '16px' : '' }"
+                        (click)="goToVisit(element)">
+                  Szczegóły
+                  <mat-icon>details</mat-icon>
+                </button>
+              </ng-container>
+              <ng-container *ngIf="worker && element.visitStatusEnum === 'WAITING'">
+                <button class="accept-btn" mat-button (click)="acceptVisit(element)">Akceptuj</button>
+                <button class=reject-btn mat-button (click)="rejectVisit(element)">Odrzuć</button>
+              </ng-container>
+              <ng-container *ngIf="!worker && element.visitStatusEnum === 'UPCOMING'
+              && !checkIfVisitStarted(element.startTime)">
+                <button class="reject-btn" mat-button (click)="cancelVisit(element)">Odwołaj</button>
+              </ng-container>
+              <ng-container *ngIf="!ifGoToVisitHide && !worker && element.visitStatusEnum === 'UPCOMING'
+              && element.visitTypeEnum !=='STATIONARY' && checkIfVisitStarted(element.startTime)">
+                <button class="green" style="color: white" mat-button (click)="goToTelevisit(element)">Do wizyty</button>
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns">
+          </mat-header-row>
+
+          <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+
+      <ng-template #arrowUp>
+        <mat-icon class="sort-arrow">
+          arrow_upward
+        </mat-icon>
+      </ng-template>
+
+      <ng-template #arrowDown>
+        <mat-icon class="sort-arrow">
+          arrow_downward
+        </mat-icon>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

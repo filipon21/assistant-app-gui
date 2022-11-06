@@ -36,4 +36,12 @@ export class UserAuthService {
   public getId(): string {
     return localStorage.getItem('userId');
   }
+
+  setName(name: string) {
+    localStorage.setItem('name', name);
+  }
+
+  public getName(): string{
+    return localStorage.getItem('name');
+  }
 }
