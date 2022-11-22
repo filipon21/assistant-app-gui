@@ -37,7 +37,8 @@ export class VisitService {
         });
         let visitDetails = new VisitDetails(visit.id, null, user[0]?.userFirstName,
           user[0]?.userLastName, this.datePipe.transform(visit.startTime,
-            "yyyy-MM-dd HH:mm"), null, visit.visitTypeEnum,
+            "yyyy-MM-dd HH:mm"), this.datePipe.transform(visit.endTime,
+            "yyyy-MM-dd HH:mm"), visit.visitTypeEnum,
           visit.address, visit.visitStatusEnum, user[0]?.id)
        visitTableList.push(visitDetails);
       }
@@ -55,7 +56,8 @@ export class VisitService {
         }
         let visitDetails = new VisitDetails(visit.id, worker, user[0]?.userFirstName,
           user[0]?.userLastName, this.datePipe.transform(visit.startTime,
-            "yyyy-MM-dd HH:mm"), null, visit.visitTypeEnum,
+            "yyyy-MM-dd HH:mm"), this.datePipe.transform(visit.endTime,
+            "yyyy-MM-dd HH:mm"), visit.visitTypeEnum,
           visit?.address, visit?.visitStatusEnum)
         visitTableList.push(visitDetails);
       }

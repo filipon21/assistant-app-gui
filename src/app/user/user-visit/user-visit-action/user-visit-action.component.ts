@@ -25,16 +25,21 @@ export class UserVisitActionComponent implements OnInit {
   visitId: string;
   visit: Visit;
   phoneNumber: string;
+  chat: string;
 
   ngOnInit(): void {
     this.hostId = this.route.snapshot.queryParamMap.get('hostId');
     this.visitId = this.route.snapshot.queryParamMap.get('visitId');
     this.userApi.getVisit(this.visitId).subscribe(value => {
       this.visit = value;
+      this.chat = value.chatLink
     })
     this.userApi.getUser(this.hostId).subscribe(value => {
       this.phoneNumber = value.phoneNumber;
     })
   }
 
+  goToLink(url: string){
+    window.open(url, "_blank");
+  }
 }

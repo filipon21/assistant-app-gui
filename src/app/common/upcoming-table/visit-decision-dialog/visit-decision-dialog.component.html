@@ -1,0 +1,38 @@
+<mat-icon class="back-button" (click)="close()">
+  close
+</mat-icon>
+<ng-container *ngIf="accept">
+    <div class="info-header-step">
+      WYŚLIJ LINK DO CZATU I ZAAKCEPTUJ WIZYTĘ
+    </div>
+    <br>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Link do chatu</mat-label>
+        <input placeholder="Link do chatu" matInput formControlName="chatLink">
+      </mat-form-field>
+    </div>
+    <button style="margin-right: 0.5rem" mat-button class="rectangle-button green"
+            (click)="acceptVisit()">
+      ZAAKCEPTUJ
+    </button>
+    <button mat-button class="rectangle-button red" [mat-dialog-close]>
+      ANULUJ
+    </button>
+</ng-container>
+<ng-container *ngIf="!accept">
+  <div class="info-header-step">
+    ODRZUĆ WIZYTĘ
+  </div>
+  <br>
+  <div>
+    CZY NA PEWNO CHCESZ ODRZUCIĆ TĘ WIZYTĘ?
+  </div>
+  <button style="margin-right: 0.5rem" mat-stroked-button
+          (click)="rejectVisit()">
+    ODRZUĆ
+  </button>
+  <button mat-button class="rectangle-button red" [mat-dialog-close]>
+    ANULUJ
+  </button>
+</ng-container>

@@ -51,7 +51,10 @@ export class WorkerVisitDetailsComponent implements OnInit {
 
     this.userApiService.getVisit(this.visitId).subscribe(value => {
       this.visit = value;
-      this.user = value.users[1];
+      const user = value.users.filter((obj) => {
+        return obj.assistant === null && obj.doctor === null;
+      });
+      this.user = user[0];
       console.log(value)
       this.formGroup.setValue({recommendation: value.recommendation,
         description: value.description});

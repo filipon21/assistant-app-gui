@@ -13,9 +13,6 @@ import {DatePipe} from "@angular/common";
 import {UserAuthService} from "../../_services/user-auth.service";
 import {debounceTime} from "rxjs/operators";
 import {Visit} from "../../classes/visit/Visit";
-import {
-  WorkerVisitAppointmentDialogComponent
-} from "../../worker/worker-visit-appointment/worker-visit-appointment-dialog/worker-visit-appointment-dialog.component";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {FreeTableDialogComponent} from "./free-table-dialog/free-table-dialog.component";
 import {VisitService} from "../../classes/visit/visit.service";

@@ -15,6 +15,7 @@ import {Visit} from "../../classes/visit/Visit";
 import {VisitService} from "../../classes/visit/visit.service";
 import {MatDialog} from "@angular/material/dialog";
 import {UpcomingTableDialogComponent} from "./upcoming-table-dialog/upcoming-table-dialog.component";
+import {VisitDecisionDialogComponent} from "./visit-decision-dialog/visit-decision-dialog.component";
 
 @Component({
   selector: 'app-upcoming-table',
@@ -184,11 +185,28 @@ export class UpcomingTableComponent implements OnInit {
   }
 
   rejectVisit(element) {
-
+    this.dialog.open(VisitDecisionDialogComponent, {
+      data: {visit: element, accept: false},
+      width: "40%"
+    })
   }
 
   acceptVisit(element) {
-
+    const dialogRef = this.dialog.open(VisitDecisionDialogComponent, {
+      data: {visit: element, accept: true},
+      width: "40%"
+    })
+    dialogRef.afterClosed().subscribe((accepted) => {
+      if (accepted) {
+        localStorage.setItem('visitId', element.id);
+        localStorage.setItem('userTableId', element.userTableId);
+        this.router.navigate(['/worker-visit-details'],
+          {queryParams: {visitId: element.id, userTableId: element.userTableId}});
+       if (element.visitTypeEnum === 'CHAT'){
+         window.open('https://assistant.zulipchat.com/', "_blank");
+       }
+      }
+    });
   }
 
   cancelVisit(element) {

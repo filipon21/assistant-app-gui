@@ -4,5 +4,8 @@
   </div>
 </ng-container>
 <ng-container *ngIf="this.visit.visitTypeEnum === 'CHAT'">
-  czat
+  <div class="container" style="font-size: 20px">
+    Kliknij, aby przenieść się do czatu!:
+    <a (click)="goToLink(chat)">CZAT</a>
+  </div>
 </ng-container>

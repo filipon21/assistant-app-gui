@@ -70,6 +70,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { UpcomingTableDialogComponent } from './common/upcoming-table/upcoming-table-dialog/upcoming-table-dialog.component';
 import { WorkerDrugsComponent } from './worker/worker-drugs/worker-drugs.component';
 import { WorkerHistoryComponent } from './worker/worker-history/worker-history.component';
+import { VisitDecisionDialogComponent } from './common/upcoming-table/visit-decision-dialog/visit-decision-dialog.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { WorkerHistoryComponent } from './worker/worker-history/worker-history.c
     UpcomingTableDialogComponent,
     WorkerDrugsComponent,
     WorkerHistoryComponent,
+    VisitDecisionDialogComponent,
   ],
   imports: [
     BrowserModule,

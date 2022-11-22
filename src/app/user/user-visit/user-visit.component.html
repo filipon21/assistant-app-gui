@@ -4,7 +4,7 @@
       <button mat-button (click)="createPhoneVisit()">Wizyta telefoniczna
         <mat-icon>phone</mat-icon>
       </button>
-      <button mat-button >Czat
+      <button mat-button (click)="createChatVisit()">Czat
         <mat-icon>chat</mat-icon>
       </button>
     </div>
@@ -21,6 +21,13 @@
     </div>
   </ng-container>
   <ng-container *ngIf="this.visit.visitTypeEnum === 'CHAT'">
-    czat
+    <div class="container mt-5 font-size">
+      Jesteś w trakcie wizyty na czacie! Aby przejść do czatu ponownie
+      kliknij w link poniżej!
+    </div>
+    <div>
+      <a class="font-size" style="cursor: pointer;"
+         (click)="goToLink(chat)">PRZEJDŹ DO CZATU</a>
+    </div>
   </ng-container>
 </ng-container>

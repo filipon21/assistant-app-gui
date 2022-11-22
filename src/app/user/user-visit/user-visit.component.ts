@@ -14,6 +14,7 @@ import {DatePipe} from "@angular/common";
   styleUrls: ['./user-visit.component.css']
 })
 export class UserVisitComponent implements OnInit, OnDestroy {
+   chat: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -82,7 +83,8 @@ export class UserVisitComponent implements OnInit, OnDestroy {
         this.router.navigate(['/assistant-list'])
       }
       this.visit = value;
-      if (this.visit.visitStatusEnum === 'STARTED') {
+      if (this.visit.visitStatusEnum === 'STARTED' &&
+      this.visit.visitTypeEnum === 'PHONE') {
         console.log(value)
         let obj = value.users
           .find((obj => obj.roles[0].roleName !== 'USER'));
@@ -90,6 +92,14 @@ export class UserVisitComponent implements OnInit, OnDestroy {
         this.phoneNumber = obj.phoneNumber;
         // this.router.navigate(['/user-current-visit'],
         //   {queryParams:{hostId: obj.id, visitId: value.id}});
+        this.view = 'STARTED';
+      }
+      if (this.visit.visitStatusEnum === 'STARTED' &&
+        this.visit.visitTypeEnum === 'CHAT') {
+
+        this.chat = this.visit.chatLink
+        window.open(this.visit.chatLink, "_blank");
+
         this.view = 'STARTED';
       }
       if (this.visit.visitStatusEnum === 'WAITING') {
@@ -118,4 +128,30 @@ export class UserVisitComponent implements OnInit, OnDestroy {
     this.visitSubscription.unsubscribe();
   }
 
+  createChatVisit() {
+    if (this.visit) {
+      return
+    } else {
+      let now = Date.now();
+      this.userApi.createVisit(this.assistantId, this.userId, 'CHAT',
+        this.datePipe.transform(now,
+          "yyyy-MM-ddTHH:mm:ss"), 'WAITING').subscribe(
+        value => {
+          // this.templateService.setTemplate(value);
+          // localStorage.setItem('templateId', JSON.stringify(value.id));
+          this.visit = value;
+          this.snackBar.open("Utworzono wizytę", '', {
+            duration: 5000,
+            panelClass: ['multiline-snackbar', 'snackbarStyle']
+          });
+          this.view = 'WAITING';
+          // localStorage.setItem('visitId', JSON.stringify(value.id));
+          // localStorage.setItem('assistantId', this.assistantId);
+        })
+    }
+  }
+
+  goToLink(url: any) {
+    window.open(url, "_blank");
+  }
 }

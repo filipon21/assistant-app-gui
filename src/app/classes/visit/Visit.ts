@@ -56,11 +56,12 @@ export class Visit {
   prescription: Prescription;
   exemption: Exemption;
   users: User[]
+  chatLink: string;
 
   constructor(id?: string, visitStatusEnum?: string, visitTypeEnum?: string,
               startTime?: string, endTime?: string,
               users?: User[], address?: string, exemption?: Exemption, prescription?: Prescription,
-              reccomendation?: string, refferals?:Refferal[]) {
+              reccomendation?: string, refferals?:Refferal[], chatLink?:string) {
     this.id = id;
     this.refferals = refferals;
     this.recommendation = reccomendation;
@@ -72,5 +73,6 @@ export class Visit {
     this.endTime = endTime;
     this.users = users;
     this.address = address;
+    this.chatLink = chatLink;
   }
 }

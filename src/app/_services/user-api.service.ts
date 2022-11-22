@@ -294,4 +294,18 @@ export class UserApiService {
       params: params
     })
   }
+
+  rejectVisit(id: string, now: any) {
+    return this.httpclient.patch(this.PATH_OF_API + this.URL_VISIT+ "/" + id, {
+      endTime: now,
+      visitStatusEnum: "REJECTED",
+    })
+  }
+
+  acceptVisit(id: string, chatLink?: string) {
+    return this.httpclient.patch(this.PATH_OF_API + this.URL_VISIT+ "/" + id, {
+      chatLink: chatLink ? chatLink : null,
+      visitStatusEnum: "STARTED",
+    })
+  }
 }

@@ -29,7 +29,7 @@ export class UserAccountComponent implements OnInit{
     this.userServiceApi.getUser(this.userAuthService.getId()).subscribe(value => {
       this.user = value;
       this.accountForm = this.formBuilder.group({
-        userFirstName: [this.user.userFirstName ?? '', [Validators.required, Validators.maxLength(100)]],
+        userFirstName: [this.user?.userFirstName ?? '', [Validators.required, Validators.maxLength(100)]],
         userLastName: [this.user?.userLastName ?? '', [Validators.required, Validators.maxLength(100)]],
         userName: [this.user?.userName ?? '', [Validators.email, Validators.required, Validators.maxLength(100)]],
         phoneNumber: [this.user?.phoneNumber ?? '', [Validators.pattern(/([0-9])/i), Validators.required, Validators.maxLength(9),

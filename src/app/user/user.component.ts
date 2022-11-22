@@ -28,4 +28,9 @@ export class UserComponent implements OnInit {
   goToAccount() {
     this.router.navigate(['/user-account'])
   }
+
+  goToUpcoming() {
+    this.router.navigate(['/user-upcoming'])
+
+  }
 }
