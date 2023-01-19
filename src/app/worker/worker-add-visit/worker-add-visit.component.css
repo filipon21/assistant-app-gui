@@ -1,0 +1,15 @@
+.labels {
+  font-size: 2rem
+}
+
+button {
+  width: 10rem;
+  font-size: 200%;
+  background-color: royalblue;
+  color: white;
+}
+
+.mat-form-field{
+  font-size: 0.7rem;
+  width: 50%;
+}
