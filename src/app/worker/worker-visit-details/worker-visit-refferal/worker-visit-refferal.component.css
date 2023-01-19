@@ -1,0 +1,16 @@
+.refferal-button{
+  color: white;
+  background-color: green;
+  margin-bottom: 1rem;
+}
+
+.circle-button{
+  padding: 0.5rem;
+  border-radius: 100%;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: 1px 3px 6px 0px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  border: 0;
+}
+

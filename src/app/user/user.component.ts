@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../_services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z komopnentem z panelem pacjenta
+ */
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -8,22 +11,29 @@ import { UserService } from '../_services/user.service';
 })
 export class UserComponent implements OnInit {
 
-  message;
-  constructor(private userService: UserService) { }
-
-  ngOnInit(): void {
-    this.forUser();
+  constructor(
+    private router: Router,
+  ) {
   }
 
-  forUser() {
-    this.userService.forUser().subscribe(
-      (response) => {
-        console.log(response);
-        this.message = response;
-      }, 
-      (error)=>{
-        console.log(error);
-      }
-    );
+  ngOnInit(): void {
+  }
+
+  goToList(){
+    this.router.navigate(['/assistant-list'])
+  }
+
+  goToHistory() {
+    this.router.navigate(['/user-history'])
+
+  }
+
+  goToAccount() {
+    this.router.navigate(['/user-account'])
+  }
+
+  goToUpcoming() {
+    this.router.navigate(['/user-upcoming'])
+
   }
 }

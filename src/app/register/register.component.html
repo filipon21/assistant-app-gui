@@ -1,0 +1,171 @@
+<div class="container mt-5">
+  <div class="card">
+    <h4 class="card-header">Rejestracja</h4>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label class="labels">Imię</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="userFirstName"
+                         [ngClass]="{ 'is-invalid': submitted && f.userFirstName.errors }"/>
+                  <mat-error *ngIf="submitted && f.userFirstName.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.userFirstName.errors.required">Imię jest wymagane</ng-container>
+                  </mat-error>
+                </mat-form-field>
+
+              </div>
+              <div class="col-md-6">
+                <label class="labels">Nazwisko</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="userLastName"
+                         [ngClass]="{ 'is-invalid': submitted && f.userLastName.errors }"/>
+                  <mat-error *ngIf="submitted && f.userLastName.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.userLastName.errors.required">Nazwisko jest wymagane</ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label class="labels">Adres email</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="userName"
+                         [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"/>
+                  <mat-error *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.userName.errors.required">Adres email jest wymagany</ng-container>
+                    <ng-container *ngIf="f.userName.errors.email">Niepoprawny adres email</ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="labels">Numer pesel</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="pesel" maxlength="11"
+                         [ngClass]="{ 'is-invalid': submitted && f.pesel.errors }"/>
+                  <mat-error *ngIf="submitted && f.pesel.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.pesel.errors.required">Numer pesel jest wymagany</ng-container>
+                    <ng-container *ngIf="f.pesel.errors.pesel && !f.pesel.errors.required">Numer pesel jest
+                      niepoprawny
+                    </ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label class="labels">Data urodzin</label>
+                <mat-form-field appearance="outline">
+                  <input matInput [formControlName]="'birthday'" [matDatepicker]="birthdayPicker">
+                  <mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #birthdayPicker></mat-datepicker>
+                  <mat-error>format daty: yyyy/mm/dd</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="labels">Numer telefonu</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="phoneNumber" maxlength="9"
+                         [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"/>
+                  <mat-error *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.phoneNumber.errors.required">Numer telefonu jest wymagany</ng-container>
+                    <ng-container *ngIf="f.phoneNumber.errors.pattern">Numer telefonu jest niepoprawny</ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label class="labels">Adres zamieszkania</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="address" maxlength="100"
+                         [ngClass]="{ 'is-invalid': submitted && f.address.errors }"/>
+                  <mat-error *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.address.errors.required">Adres zamieszkania jest wymagany</ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="labels">Miejscowość</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="town" maxlength="100"
+                         [ngClass]="{ 'is-invalid': submitted && f.town.errors }"/>
+                  <mat-error *ngIf="submitted && f.town.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.town.errors.required">Miejscowość jest wymagana</ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label class="labels">Kod pocztowy</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="postalCode" maxlength="100"
+                         [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }"/>
+                  <mat-error *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.postalCode.errors.required">Kod pocztowy jest wymagany</ng-container>
+                    <ng-container *ngIf="f.postalCode.errors.pattern">Kod pocztowy jest nieprawidłowy</ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <label class="labels">Województwo</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="voivodeship" maxlength="100"
+                         [ngClass]="{ 'is-invalid': submitted && f.voivodeship.errors }"/>
+                  <mat-error *ngIf="submitted && f.voivodeship.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.voivodeship.errors.required">Województwo jest wymagane</ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <label class="labels">Kraj</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="country" maxlength="100"
+                         [ngClass]="{ 'is-invalid': submitted && f.country.errors }"/>
+                  <mat-error *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.country.errors.required">Kraj jest wymagany</ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label class="labels">Hasło</label>
+                <mat-form-field appearance="outline">
+                  <input matInput type="password" formControlName="userPassword"
+                         [ngClass]="{ 'is-invalid': submitted && f.userPassword.errors }"
+                         (change)="f.passwordCheck.updateValueAndValidity()"/>
+                  <mat-error *ngIf="submitted && f.userPassword.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.userPassword.errors.required">Hasło jest wymagane</ng-container>
+                    <ng-container *ngIf="f.userPassword.errors.minlength">Hasło musi składać się z co najmniej 6 znaków
+                    </ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="labels">Powtórz hasło</label>
+                <mat-form-field appearance="outline">
+                  <input matInput type="password" formControlName="passwordCheck"
+                         [ngClass]="{ 'is-invalid': submitted && f.passwordCheck.errors }"/>
+                  <mat-error *ngIf="submitted && f.passwordCheck.errors" class="invalid-feedback">
+                    <ng-container *ngIf="f.passwordCheck.errors.required">Powtórzone hasło jest wymagane</ng-container>
+                    <ng-container *ngIf="f.passwordCheck.errors.isMatching">Hasła nie są takie same</ng-container>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div style="margin-top: 1rem">
+              <button class="btn btn-primary">
+                Zarejestruj się
+              </button>
+              <a routerLink="/login" class="btn btn-link">Anuluj</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

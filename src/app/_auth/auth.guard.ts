@@ -8,8 +8,11 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserAuthService } from '../_services/user-auth.service';
-import { UserService } from '../_services/user.service';
+import { UserApiService } from '../_services/user-api.service';
 
+/**
+ * Klasa służąca do sprawdzania uprawnień przy przemieszczaniu się po aplikacji
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +20,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private userAuthService: UserAuthService,
     private router: Router,
-    private userService: UserService
+    private userService: UserApiService
   ) {}
 
   canActivate(
@@ -43,7 +46,6 @@ export class AuthGuard implements CanActivate {
       }
     }
 
-    this.router.navigate(['/login']);
     return false;
   }
 }

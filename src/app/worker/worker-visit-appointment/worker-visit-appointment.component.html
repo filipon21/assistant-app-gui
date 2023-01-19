@@ -1,0 +1,60 @@
+<div class="container rounded bg-white" xmlns="http://www.w3.org/1999/html">
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        <div class="d-flex justify-content-between align-items-center mb-3" >
+          <h1 class="text-right">Umawianie wizyt</h1>
+        </div>
+
+          <div class="row mt-2">
+            <div class="col-md-6" style="margin-bottom: 1rem">
+             <mat-card>
+               <mat-label><b>Znajdź użytkownika</b></mat-label>
+               <app-worker-visit-appointment-user-table (elementEvent)="chooseUserId($event)">
+               </app-worker-visit-appointment-user-table>
+               <button [disabled]="!this.userId" (click)="searchVisit()" style="margin-top: 1rem; color: white"
+                       [ngClass]="this.userId ? 'green' : 'grey'"
+                       mat-button>
+                 Szukaj terminu<mat-icon>search</mat-icon></button>
+             </mat-card>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 1rem">
+              <mat-card>
+                <mat-label><b>Skierowania użytkownika</b></mat-label>
+                <form [formGroup]="form">
+                  <mat-form-field appearance="outline">
+                    <mat-select [formControlName]="'specialization'" placeholder="Lekarz"
+                                matTooltip="Wybierz lekarza">
+                      <mat-option (click)="this.form.get('specialization')?.reset('')">
+                        Wybierz
+                      </mat-option>
+                      <mat-option value='CARDIOLOGIST'>Kardiolog
+                      </mat-option>
+                      <mat-option value='ORTHOPAEDIST'>Ortopeda
+                        <mat-icon></mat-icon>
+                      </mat-option>
+                      <mat-option value='NEUROLOGIST'>Neurolog
+                        <mat-icon></mat-icon>
+                      </mat-option>
+                    </mat-select>
+                    <mat-icon *ngIf="!specialization()" matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </form>
+                <mat-divider></mat-divider>
+                <ng-container *ngFor="let refferal of refferals">
+                  <div class="col-md-6" style="display: flex; margin-top: 0.5rem" *ngIf="refferals">
+                    <mat-icon>fiber_manual_record</mat-icon>
+                    {{refferal.doctorSpecializationEnum | workerSpecialization}}
+                    <button [ngClass]="refferal.id === refferalId ? 'green' : ''"
+                            style="margin-left: auto" mat-stroked-button (click)="addRefferal(refferal.id)">
+                      Wybierz
+                    </button>
+                  </div>
+                </ng-container>
+              </mat-card>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

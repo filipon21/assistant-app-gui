@@ -1,0 +1,74 @@
+<div class="container rounded bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        <div class="d-flex justify-content-between align-items-center">
+          <h1 class="text-right">Dodaj wolny termin</h1>
+        </div>
+        <form [formGroup]="visitForm">
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <div>
+                <label class="labels">Typ wizyty</label>
+              </div>
+              <mat-form-field appearance="outline">
+                <mat-select [formControlName]="'visitTypeEnum'" placeholder="Typ wizyty"
+                            matTooltip="Wybierz typ wizyty">
+                  <mat-option (click)="this.visitForm.get('visitTypeEnum')?.reset('')">
+                    Wybierz
+                  </mat-option>
+                  <mat-option value='STATIONARY'>Stacjonarna
+                  </mat-option>
+                  <mat-option value='CHAT'>Czat
+                  </mat-option>
+                  <mat-option value='PHONE'>Telefoniczna
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <div>
+                <label class="labels">Data i czas rozpoczęcia</label>
+              </div>
+              <mat-form-field appearance="outline" style="max-width: 50%">
+                <input matInput [formControlName]="'startTime'" [min]="todayDate" [ngxMatDatetimePicker]="$any(endTimePicker)"
+                       placeholder="Data i czas rozpoczęcia">
+                <mat-datepicker-toggle matSuffix [for]="endTimePicker"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #endTimePicker>
+                </ngx-mat-datetime-picker>
+              </mat-form-field>
+              <mat-icon *ngIf="this.visitForm.get('startTime')?.value" matSuffix aria-label="Clear"
+                        (click)="this.visitForm.get('startTime')?.reset('')">
+                close
+              </mat-icon>
+            </div>
+            <div class="row mt-2">
+
+              <div class="col-md-6">
+
+                <ng-container *ngIf="visitForm.get('visitTypeEnum').value === 'STATIONARY'">
+                  <div>
+                    <label class="labels">Adres</label>
+                  </div>
+                  <mat-form-field appearance="outline">
+                    <input
+                      matInput placeholder="Adres wizyty" [formControlName]="'address'">
+                    <mat-icon *ngIf="this.visitForm.get('address')?.value"
+                              (click)="this.visitForm.get('address')?.reset('')"
+                              matSuffix>close
+                    </mat-icon>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 text-center">
+            <button [disabled]="visitForm.invalid" mat-button class="btn btn-primary profile-button"
+                    (click)="saveVisit()">Zapisz
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

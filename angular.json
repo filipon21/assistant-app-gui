@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "jwt-youtube-ui": {
+    "assistant-web-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/jwt-youtube-ui",
+            "outputPath": "dist/assistant-web-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
@@ -66,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "jwt-youtube-ui:build"
+            "browserTarget": "assistant-web-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "jwt-youtube-ui:build:production"
+              "browserTarget": "assistant-web-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "jwt-youtube-ui:build"
+            "browserTarget": "assistant-web-app:build"
           }
         },
         "test": {
@@ -92,6 +93,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -114,18 +116,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "jwt-youtube-ui:serve"
+            "devServerTarget": "assistant-web-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "jwt-youtube-ui:serve:production"
+              "devServerTarget": "assistant-web-app:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "jwt-youtube-ui",
+  "defaultProject": "assistant-web-app",
   "cli": {
     "analytics": false
   }

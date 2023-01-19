@@ -1,0 +1,25 @@
+div {
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  width: 100%;
+  margin: 5%;
+  font-size: 200%;
+  background-color: royalblue;
+  color: white;
+}
+
+.mat-button{
+  min-height: 6rem;
+  min-width: 30rem;
+}
+
+.font-size{
+  font-size: 2rem;
+}
+
+.margin-top{
+  margin-top: 3%
+}

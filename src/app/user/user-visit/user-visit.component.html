@@ -1,0 +1,33 @@
+<ng-container *ngIf="view === 'START'">
+  <div class="container col-md-12 margin-top">
+    <div class="btn-group-lg">
+      <button mat-button (click)="createPhoneVisit()">Wizyta telefoniczna
+        <mat-icon>phone</mat-icon>
+      </button>
+      <button mat-button (click)="createChatVisit()">Czat
+        <mat-icon>chat</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="view === 'WAITING'">
+  <div class="container font-size margin-top">Oczekiwanie na pracownika</div>
+  <mat-spinner></mat-spinner>
+</ng-container>
+<ng-container *ngIf="view === 'STARTED'">
+  <ng-container *ngIf="this.visit.visitTypeEnum === 'PHONE'">
+    <div class="container mt-5 font-size" >
+      Numer pracownika: {{phoneNumber}}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="this.visit.visitTypeEnum === 'CHAT'">
+    <div class="container mt-5 font-size">
+      Jesteś w trakcie wizyty na czacie! Aby przejść do czatu ponownie
+      kliknij w link poniżej!
+    </div>
+    <div>
+      <a class="font-size" style="cursor: pointer;"
+         (click)="goToLink(chat)">PRZEJDŹ DO CZATU</a>
+    </div>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,109 @@
+img {
+  height: 40%;
+}
+
+.sort-arrow {
+  font-size: 14px;
+}
+
+.mat-column-id {
+  flex: 0 0 5%;
+}
+
+.mat-cell {
+  font-size: 18px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.mat-header-cell{
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.no-header-margin {
+  margin: 0;
+}
+
+#header-info {
+  margin-top: 10px;
+}
+
+.searchInput {
+  width: 100px;
+  text-align: center;
+  background: inherit;
+  border: none;
+  border-bottom: 1px solid #AAAAAA;
+  font-weight: 300;
+  appearance: none;
+  color: #AAAAAA;
+}
+
+.searchInput:focus {
+  border: 0;
+  border-bottom: 1px solid #FF7900;
+  outline: none;
+  color: #FF7900;
+}
+
+#dehaze-icon {
+  cursor: pointer;
+  font-size: 30px;
+}
+
+#dehaze-icon:hover {
+  color: darkorange;
+}
+
+.menu-item-text {
+  display: inline-block;
+  margin-left: 10%;
+}
+
+.clear-icon{
+  cursor: pointer;
+}
+.searchContainer{
+  display: flex;flex-direction: row;align-items: center;
+}
+
+.green-icon {
+  background: green;
+}
+
+.red-icon {
+  background: red;
+}
+
+.edit-icons {
+  transform: scale(0.9);
+  border-radius: 50%;
+  color: white;
+}
+
+.my-checkbox {
+  margin-right: 1.5rem;
+  margin-bottom: 1rem
+}
+
+.mat-form-field {
+  min-width: 10rem;
+  margin-right: 1.5rem;
+}
+
+.mat-icon{
+  cursor: pointer;
+}
+
+.visit-button{
+  background-color: #2376DB;
+  color: white;
+  font-size: 1.2rem;
+  min-width: 10rem;
+}

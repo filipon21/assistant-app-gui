@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserAuthService } from '../_services/user-auth.service';
-import { UserService } from '../_services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
+import {UserAuthService} from '../_services/user-auth.service';
+import {UserApiService} from '../_services/user-api.service';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z formularzem do logowania
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,29 +15,50 @@ import { UserService } from '../_services/user.service';
 })
 export class LoginComponent implements OnInit {
   constructor(
-    private userService: UserService,
+    private userService: UserApiService,
     private userAuthService: UserAuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   login(loginForm: NgForm) {
     this.userService.login(loginForm.value).subscribe(
       (response: any) => {
-        this.userAuthService.setRoles(response.user.role);
+        const id = response.user.id;
+        this.userAuthService.setRoles(response.user.roles);
+        this.userAuthService.setId(id);
+        this.userAuthService.setName(response.user.userFirstName + " " + response.user.userLastName);
         this.userAuthService.setToken(response.jwtToken);
 
-        const role = response.user.role[0].roleName;
-        if (role === 'Admin') {
-          this.router.navigate(['/admin']);
+        this.userService.setIsOnline('true', parseInt(this.userAuthService.getId())).subscribe((data) => {
+          console.log(data)
+        })
+
+        const role = response.user.roles[0].roleName;
+        if (role === 'DOCTOR') {
+          this.router.navigate(['/worker']);
+        }
+        if (role === 'ASSISTANT') {
+          this.router.navigate(['/worker']);
         } else {
           this.router.navigate(['/user']);
         }
       },
       (error) => {
-        console.log(error);
+        this.snackBar.open("Logowanie nie powiodło się! Nieprawidłowy email lub hasło!", '', {
+          duration: 3000,
+          verticalPosition:"top",
+          panelClass: ['error-snackbar', 'multiline-snackbar']
+        });
       }
     );
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 }

@@ -1,0 +1,111 @@
+<div class="container" xmlns="http://www.w3.org/1999/html">
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 class="text-right">Szczegóły wizyty</h1>
+        </div>
+        <mat-card>
+          <div class="row mt-2">
+            <div class="col-md-5">
+              <label class="labels">Pracownik</label>
+              <div class="font-size-normal">
+                <mat-icon>face</mat-icon>
+                <ng-container *ngIf="visit?.users[0]?.doctor">
+                  {{visit.users[0].doctor?.doctorSpecializationEnum | workerSpecialization}} {{visit.users[0].userFirstName}}
+                  {{visit.users[0].userLastName}}
+                </ng-container>
+                <ng-container *ngIf="visit?.users[0]?.assistant">
+                  Asystent {{visit.users[0].userFirstName}}
+                  {{visit.users[0].userLastName}}
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="labels">Adres</label>
+              <div class="font-size-normal">
+                <span *ngIf="visit?.address"><mat-icon>location_on</mat-icon>
+                  {{visit.address}}</span>
+                <span *ngIf="!visit?.address"><mat-icon>location_off</mat-icon>Telewizyta</span>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <mat-icon>speaker_notes</mat-icon>
+              <label class="labels">Zalecenia</label>
+              <div class="font-size-normal">
+                <span *ngIf="visit?.recommendation">
+                  {{visit.recommendation}}
+                </span>
+                <span *ngIf="!visit?.recommendation">
+                  <mat-icon style="color: red">close</mat-icon> Brak zaleceń</span>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <mat-icon>screen_share</mat-icon>
+              <label class="labels">Skierowania</label>
+              <div class="font-size-normal">
+                <ng-container *ngFor="let refferal of visit?.refferals">
+                <div *ngIf="visit?.refferals"
+                     [class]="refferal?.status === 'COMPLETED' ? 'green' : ''">
+                  <mat-icon>fiber_manual_record</mat-icon>
+                  Wystawiono skierowanie do: {{refferal?.doctorSpecializationEnum | workerSpecialization}}
+                  <ng-container *ngIf="refferal.status === 'COMPLETED'">
+                    <span class="green">(Zrealizowano<mat-icon>done</mat-icon>)</span>
+                  </ng-container>
+                </div>
+                </ng-container>
+                <span *ngIf="visit?.refferals.length === 0">
+                  <mat-icon style="color: red">close</mat-icon> Brak skierowań</span>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <mat-icon>receipt</mat-icon>
+              <label class="labels">e-Recepty</label>
+              <div class="font-size-normal">
+                <span *ngIf="visit?.prescription">
+                  <button mat-button (click)="downloadPrescription()"
+                          style="margin-bottom: 0.5rem; font-size: 17px; color: blue">
+                    <mat-icon> insert_drive_file</mat-icon>
+                    Pobierz e-Receptę {{visit?.prescription.code}}
+                    <mat-icon style="color: red">picture_as_pdf
+                    </mat-icon>
+                  </button>
+                </span>
+                <span *ngIf="!visit?.prescription">
+                  <mat-icon style="color: red">close</mat-icon> Brak e-Recept</span>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <mat-icon>restore</mat-icon>
+              <label class="labels">Zwolnienie</label>
+              <div class="font-size-normal">
+                <span *ngIf="visit?.exemption">
+                  <mat-icon style="color: green">done</mat-icon> Wystawiono zwolnienie od
+                  {{visit?.exemption?.startTime | dateTransform}}
+                  do {{visit?.exemption.endTime | dateTransform}}.
+                </span>
+                <div>
+                  <span *ngIf="!visit?.exemption">
+                    <mat-icon style="color: red">close</mat-icon> Nie wystawiono zwolnienia
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

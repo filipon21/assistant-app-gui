@@ -1,0 +1,9 @@
+mat-form-field{
+  font-size: 12px;
+  padding-right: 1rem;
+}
+
+.search-button{
+  color: white;
+  background-color: blue;
+}

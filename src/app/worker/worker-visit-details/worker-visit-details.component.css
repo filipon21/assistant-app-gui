@@ -1,0 +1,9 @@
+.text-area-size{
+  min-width: 36.8rem;
+}
+
+@media screen and (max-width: 1500px) {
+  .text-area-size{
+    min-width: 18rem;
+  }
+}

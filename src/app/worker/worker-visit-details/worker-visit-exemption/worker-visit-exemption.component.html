@@ -1,0 +1,48 @@
+<mat-icon>restore</mat-icon><mat-label><b>Zwolnienie</b></mat-label>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" style="margin-left: unset;">
+    <input matInput [formControlName]="'startTime'" [ngxMatDatetimePicker]="startTimePicker"
+           placeholder="Zwolnienie od" matTooltip="Dodaj datę od której ma być zwolnienie">
+    <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #startTimePicker>
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+  <mat-icon *ngIf="this.form.get('startTime')?.value" matSuffix aria-label="Clear"
+            (click)="this.form.get('startTime')?.reset('')">
+    close
+  </mat-icon>
+
+  <mat-form-field appearance="outline" style="margin-left: 1rem">
+    <input matInput [formControlName]="'endTime'" [ngxMatDatetimePicker]="endTimePicker"
+           placeholder="Zwolnienie do" matTooltip="Dodaj datę do której ma być zwolnienie">
+    <mat-datepicker-toggle matSuffix [for]="endTimePicker"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #endTimePicker>
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+  <mat-icon *ngIf="this.form.get('endTime')?.value" matSuffix aria-label="Clear"
+            (click)="this.form.get('endTime')?.reset('')">
+    close
+  </mat-icon>
+
+  <button style="margin-bottom: 1rem" [disabled]="this.form.invalid" class="exemption-button" mat-button>
+    Dodaj zwolnienie
+  </button>
+
+  <div>
+    <mat-label>Bieżące zwolnienie</mat-label>
+    <div class="font-size-normal">
+                <span *ngIf="exemption">
+                  <mat-icon style="color: green">done</mat-icon> Wystawiono zwolnienie od
+                  {{exemption?.startTime | dateTransform}}
+                  do {{exemption?.endTime | dateTransform}}.
+                </span>
+      <div>
+                  <span *ngIf="!exemption">
+                    <mat-icon style="color: red">close</mat-icon> Nie wystawiono zwolnienia
+                  </span>
+      </div>
+    </div>
+  </div>
+
+</form>

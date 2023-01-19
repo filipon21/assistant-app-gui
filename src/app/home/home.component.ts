@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserAuthService} from "../_services/user-auth.service";
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  viewControl: 'LOGOUT' | 'LOGGED' = 'LOGOUT';
 
-  constructor() { }
+  constructor(
+    private userAuthService: UserAuthService
+  ) {
+  }
 
   ngOnInit(): void {
+    if (this.userAuthService.isLoggedIn()) {
+      this.viewControl = 'LOGGED';
+    } else {
+      this.viewControl = 'LOGOUT';
+    }
   }
+
 
 }

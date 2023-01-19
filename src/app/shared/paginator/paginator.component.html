@@ -1,0 +1,25 @@
+<form class="paginator">
+  <div id="number-of-elements-label" [ngClass]="size === 'bige' ? 'bige' : ''">Liczba wyświetlanych elementów:</div>
+  <mat-form-field class="select" [ngClass]="size === 'bige' ? 'bigger' : ''">
+    <mat-select (selectionChange)="changePageSize()" [(ngModel)]="pageSize" [ngModelOptions]="{standalone: true}">
+      <mat-option *ngFor="let size of pageSizeTable" [value]="size" >
+        {{size}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button class="button" (click)="previousPage()" [disabled]="previousCheck()">
+    <mat-icon [ngClass]="size === 'bige' ? 'bigger' : ''">
+      navigate_before
+    </mat-icon>
+  </button>
+
+  <span class="text" [ngClass]="size === 'bige' ? 'bigger' : ''">{{page}} z {{pageAmount}}</span>
+
+  <button class="button" (click)="nextPage()" [disabled]="nextCheck()">
+    <mat-icon [ngClass]="size === 'bige' ? 'bigger' : ''">
+      navigate_next
+    </mat-icon>
+  </button>
+
+</form>

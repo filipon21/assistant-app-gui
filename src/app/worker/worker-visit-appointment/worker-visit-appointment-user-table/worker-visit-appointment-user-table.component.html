@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="table-box" [formGroup]="searchUser">
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Imię</mat-label>
+        <input matInput placeholder="Imię" [formControlName]="'userFirstName'">
+        <mat-icon *ngIf="userFirstName?.value" matSuffix aria-label="Clear" (click)="this.userFirstName?.reset('')">close
+        </mat-icon>
+        <mat-icon *ngIf="!userFirstName?.value" matSuffix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Nazwisko</mat-label>
+        <input matInput placeholder="Nazwisko" [formControlName]="'userLastName'">
+        <mat-icon *ngIf="userLastName?.value" matSuffix aria-label="Clear" (click)="this.userLastName?.reset('')">
+          close
+        </mat-icon>
+        <mat-icon *ngIf="!userLastName?.value" matSuffix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Numer telefonu</mat-label>
+        <input matInput placeholder="Numer telefonu" [formControlName]="'phoneNumber'">
+        <mat-icon *ngIf="phoneNumber?.value" matSuffix aria-label="Clear" (click)="this.phoneNumber?.reset('')">
+          close
+        </mat-icon>
+        <mat-icon *ngIf="!phoneNumber?.value" matSuffix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Pesel</mat-label>
+        <input matInput placeholder="Pesel" [formControlName]="'pesel'">
+        <mat-icon *ngIf="pesel?.value" matSuffix aria-label="Clear" (click)="this.pesel?.reset('')">
+          close
+        </mat-icon>
+        <mat-icon *ngIf="!pesel?.value" matSuffix>search</mat-icon>
+      </mat-form-field>
+
+    </div>
+    <app-paginator (pageChange)="changePage($event)" (pageSizeChange)="changePageSize($event)" [page]="currentPage"
+                   [pageAmount]="maxPage" >
+    </app-paginator>
+    <mat-table [dataSource]="dataSource" multiTemplateDataRows>
+
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>
+                <span>
+                    Lp.
+                </span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = renderIndex"> {{calcOrderNumber(i)}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="userFirstName">
+        <mat-header-cell *matHeaderCellDef (click)="sort('userFirstName')">
+                <span>
+                    Imię
+                    <span *ngIf="'userFirstName' === this.sortObject.actualSorting">
+                        <span *ngIf="this.sortObject.sortingStatus === 'Desc'; then arrowDown else arrowUp"></span>
+                    </span>
+                </span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.userFirstName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="userLastName">
+        <mat-header-cell *matHeaderCellDef (click)="sort('userLastName')">
+                <span>
+                    Nazwisko
+                    <span *ngIf="'userLastName' === this.sortObject.actualSorting">
+                        <span *ngIf="this.sortObject.sortingStatus === 'Desc'; then arrowDown else arrowUp"></span>
+                    </span>
+                </span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.userLastName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="pesel">
+        <mat-header-cell *matHeaderCellDef (click)="sort('pesel')">
+                <span>
+                    Pesel
+                    <span *ngIf="'pesel' === this.sortObject.actualSorting">
+                        <span *ngIf="this.sortObject.sortingStatus === 'Desc'; then arrowDown else arrowUp"></span>
+                    </span>
+                </span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element.pesel}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="phoneNumber">
+        <mat-header-cell *matHeaderCellDef (click)="sort('phoneNumber')">
+                <span>
+                    Numer telefonu
+                    <span *ngIf="'phoneNumber' === this.sortObject.actualSorting">
+                        <span *ngIf="this.sortObject.sortingStatus === 'Desc'; then arrowDown else arrowUp"></span>
+                    </span>
+                </span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element.phoneNumber}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Akcje</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-stroked-button [ngClass]="element.id === currentUserId ? 'green' : ''"
+                  (click)="addUserToSearch(element)">Wybierz</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+
+      <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>
+
+
+<ng-template #arrowUp>
+  <mat-icon class="sort-arrow">
+    arrow_upward
+  </mat-icon>
+</ng-template>
+
+<ng-template #arrowDown>
+  <mat-icon class="sort-arrow">
+    arrow_downward
+  </mat-icon>
+</ng-template>

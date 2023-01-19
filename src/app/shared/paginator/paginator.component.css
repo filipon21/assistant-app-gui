@@ -1,0 +1,54 @@
+mat-option {
+  color: #7f7f7f;
+}
+
+.paginator {
+  font-size: 16px;
+  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 200;
+}
+
+.select {
+  width: 40px;
+  color: #7f7f7f;
+}
+
+.text {
+  padding-bottom: 8px;
+  color: #7f7f7f;
+}
+
+.button {
+  font-size: 18px;
+  font-weight: 800;
+  border: 0px;
+  background: none;
+}
+
+.button:hover {
+  color: #ff7900;
+  cursor: pointer;
+}
+
+.button:disabled {
+  color: #AAAAAA;
+}
+
+#number-of-elements-label {
+  margin-right: 10px;
+  padding-bottom: 5px;
+  font-family: 'Helvetica Neue 55 Roman', 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  color: #7f7f7f;
+}
+
+.bige{
+  font-size: 140% !important;
+}
+
+.bigger{
+  transform: scale(1.5);
+}
