@@ -4,17 +4,12 @@
       <div>
           <div class="row mt-2">
             <div class="col-md-5">
-              <label class="labels">Pracownik</label>
+              <mat-icon>face</mat-icon>
+              <label class="labels">Pacjent</label>
               <div class="font-size-normal">
-                <mat-icon>face</mat-icon>
-                <ng-container *ngIf="visit?.users[0]?.doctor">
-                  {{visit.users[0].doctor?.doctorSpecializationEnum | workerSpecialization}}
-                  {{visit.users[0].userFirstName}}
-                  {{visit.users[0].userLastName}}
-                </ng-container>
-                <ng-container *ngIf="visit?.users[0]?.assistant">
-                  Asystent {{visit.users[0].userFirstName}}
-                  {{visit.users[0].userLastName}}
+                <ng-container *ngIf="patient">
+                  <app-worker-user-details [user]="patient">
+                  </app-worker-user-details>
                 </ng-container>
               </div>
             </div>

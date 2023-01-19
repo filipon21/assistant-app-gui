@@ -1,7 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {UserAuthService} from "../_services/user-auth.service";
 import {Router} from "@angular/router";
+import {UserApiService} from "../_services/user-api.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z komoponentem z panelem pracownika
+ */
 @Component({
   selector: 'app-worker',
   templateUrl: './worker.component.html',
@@ -16,7 +21,10 @@ export class WorkerComponent implements OnInit {
 
   constructor(
     private userAuthService: UserAuthService,
-    private router: Router
+    private router: Router,
+    private userApi: UserApiService,
+    private snackBar: MatSnackBar,
+    private authService: UserAuthService,
   ) {
   }
 
@@ -25,11 +33,22 @@ export class WorkerComponent implements OnInit {
   }
 
   goToCurrentVisit() {
-    let id = localStorage.getItem('visitId')
-    if (id) {
-      this.router.navigate(['/worker-visit-details'],
-        {queryParams: {visitId: id}});
-    }
+    this.userApi.getUserStartedVisit(this.authService.getId()).subscribe(value => {
+      if (!value) {
+        this.snackBar.open("Aktualnie nie masz telewizyty"
+          , '', {
+            duration: 5000,
+            verticalPosition: 'top',
+            panelClass: ['multiline-snackbar', 'error-snackbar']
+          });
+        this.router.navigate(['/worker'])
+      } else {
+        let obj = value.users
+          .find((obj => obj.roles[0].roleName === 'USER'));
+        this.router.navigate(['/worker-visit-details'],
+          {queryParams: {visitId: value.id, userTableId: obj.id}});
+      }
+    })
   }
 
   goToFindPatient() {
@@ -50,4 +69,5 @@ export class WorkerComponent implements OnInit {
     this.router.navigate(['/worker-drugs'])
 
   }
+
 }

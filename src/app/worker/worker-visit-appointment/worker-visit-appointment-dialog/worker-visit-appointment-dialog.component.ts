@@ -2,6 +2,9 @@ import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {RefferalApiService} from "../../../_services/refferal-api.service";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z dialogiem do wybierania terminu wizyty dla pacjenta
+ */
 @Component({
   selector: 'app-worker-visit-appointment-dialog',
   templateUrl: './worker-visit-appointment-dialog.component.html',

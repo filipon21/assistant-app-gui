@@ -5,6 +5,10 @@ import {UserAuthService} from "../../../_services/user-auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Visit} from "../../../classes/visit/Visit";
 
+/**
+ * Klasa służąca do obsługi związanej z
+ * komoponentem dotyczącaym aktualnej telewizyty dla pacjenta
+ */
 @Component({
   selector: 'app-user-visit-action',
   templateUrl: './user-visit-action.component.html',
@@ -16,8 +20,6 @@ export class UserVisitActionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userApi: UserApiService,
-    private authService: UserAuthService,
-    private snackBar: MatSnackBar
   ) {
   }
 

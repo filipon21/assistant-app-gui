@@ -10,6 +10,9 @@ import { Observable } from 'rxjs';
 import { UserAuthService } from '../_services/user-auth.service';
 import { UserApiService } from '../_services/user-api.service';
 
+/**
+ * Klasa służąca do sprawdzania uprawnień przy przemieszczaniu się po aplikacji
+ */
 @Injectable({
   providedIn: 'root',
 })

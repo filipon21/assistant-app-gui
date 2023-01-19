@@ -16,7 +16,11 @@ import {VisitService} from "../../classes/visit/visit.service";
 import {MatDialog} from "@angular/material/dialog";
 import {UpcomingTableDialogComponent} from "./upcoming-table-dialog/upcoming-table-dialog.component";
 import {VisitDecisionDialogComponent} from "./visit-decision-dialog/visit-decision-dialog.component";
+import {UpcomingTableStartVisitComponent} from "./upcoming-table-start-visit/upcoming-table-start-visit.component";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z tabelą nadchodzących wizyt
+ */
 @Component({
   selector: 'app-upcoming-table',
   templateUrl: './upcoming-table.component.html',
@@ -117,21 +121,34 @@ export class UpcomingTableComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
+  /**
+   * Metoda służąca do wyświetlania pracownika lub pacjenta
+   * w tabeli w zalezności od tego kto używa tego komponentu
+   */
   dataArrayFilter(array: Visit[]) {
     this.visitTableList = this.visitService.dataArrayFilter(array, this.worker)
   }
 
+  /**
+   * Metoda służąca do zmiany strony w tabeli
+   */
   changePage($event) {
     this.pagination.page = $event - 1;
     this.getData();
   }
 
+  /**
+   * Metoda służąca do zmiany ilości wyświetlanych elementów w tabeli na stronę
+   */
   changePageSize($event) {
     this.pagination.page = 0;
     this.pagination.size = $event;
     this.getData();
   }
 
+  /**
+   * Metoda służąca do sortowania elementów w tabeli
+   */
   sort(columnToSort: string) {
     this.sortObject.sort(columnToSort);
     this.pagination.page = 0;
@@ -140,6 +157,9 @@ export class UpcomingTableComponent implements OnInit {
     this.getData();
   }
 
+  /**
+   * Metoda służąca do wysłania zapytania na serwer o zwrot danych z listą wizyt
+   */
   getData() {
     if (this.checkIfSearchIsClear()) {
       this.userServiceApi.getUpcomingVisitList(this.pagination, this.userId)
@@ -163,10 +183,16 @@ export class UpcomingTableComponent implements OnInit {
     }
   }
 
+  /**
+   * Metoda służąca do obliczania liczby porządkowej w tabeli
+   */
   calcOrderNumber(indexOfElement) {
     return (this.currentPage - 1) * this.pagination.size + indexOfElement + 1
   }
 
+  /**
+   * Metoda służąca do sprawdzenia czy pola z filtracją są puste
+   */
   checkIfSearchIsClear() {
     let val1 = this.searchVisit.get('visitTypeEnum').pristine;
     let val2 = this.searchVisit.get('visitStatusEnum').pristine;
@@ -177,20 +203,43 @@ export class UpcomingTableComponent implements OnInit {
     return val1 || val2 || val3 || val4 || val5;
   }
 
+
+  /**
+   * Metoda służąca do przechodzenia do danej wizyty (otwieranie dialog
+   * z zapytaniem czy zaczęto wizytę)
+   */
   goToVisit(element) {
+    const dialogRef = this.dialog.open(UpcomingTableStartVisitComponent, {
+      data: {visit: element},
+      disableClose: true,
+      width: "40%"
+    })
+
     localStorage.setItem('visitId', element.id);
     localStorage.setItem('userTableId', element.userTableId);
     this.router.navigate(['/worker-visit-details'],
       {queryParams: {visitId: element.id, userTableId: element.userTableId}});
+    dialogRef.afterClosed().subscribe((started) => {
+      if (started && element.visitTypeEnum === 'CHAT'){
+        window.open('https://assistant.zulipchat.com/', "_blank");
+      }
+    })
   }
 
+  /**
+   * Metoda służąca do odrzucenia aktualnej prośby o telewizytę (poracownik)
+   */
   rejectVisit(element) {
     this.dialog.open(VisitDecisionDialogComponent, {
       data: {visit: element, accept: false},
       width: "40%"
     })
+    this.getData()
   }
 
+  /**
+   * Metoda służąca do zaakceptowania aktualnej prośby o telewizytę (pracownik)
+   */
   acceptVisit(element) {
     const dialogRef = this.dialog.open(VisitDecisionDialogComponent, {
       data: {visit: element, accept: true},
@@ -198,6 +247,7 @@ export class UpcomingTableComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe((accepted) => {
       if (accepted) {
+        this.getData()
         localStorage.setItem('visitId', element.id);
         localStorage.setItem('userTableId', element.userTableId);
         this.router.navigate(['/worker-visit-details'],
@@ -209,18 +259,23 @@ export class UpcomingTableComponent implements OnInit {
     });
   }
 
+  /**
+   * Metoda służąca do odwołania wizyty (pacjent)
+   */
   cancelVisit(element) {
     var time = new Date().getTime() - new Date(element.startTime).getTime();
-    if (time > -900000) {
+    if (time > -900000 && element.visitStatusEnum !== 'WAITING') {
       this.snackBar.open("Nie można odwołać wizyty 15 minut przed terminem!",
         null, {
           verticalPosition: "top",
-          panelClass: "error-snackbar"
+          panelClass: "error-snackbar",
+          duration: 3000
         })
     } else {
 
       const dialogRef = this.dialog.open(UpcomingTableDialogComponent, {
-        data: {userId: this.userId, refferalId: element.refferalId, visitId: element.id},
+        data: {userId: this.userId, refferalId: element.refferalId, visitId: element.id,
+        status: element.visitStatusEnum},
         width: "40%"
       })
       dialogRef.afterClosed().subscribe((modified) => {
@@ -231,10 +286,16 @@ export class UpcomingTableComponent implements OnInit {
     }
   }
 
+  /**
+   * Metoda służąca do przejścia do aktualnej telewizyty (pracownik)
+   */
   goToTelevisit(element) {
-
+    this.router.navigate(['/user-visit'])
   }
 
+  /**
+   * Metoda służąca do sprawdzenia czy jest już po terminie danej wizyty
+   */
   checkIfVisitStarted(startTime: string) {
     var time = new Date().getTime() - new Date(startTime).getTime();
     return time >= 0;

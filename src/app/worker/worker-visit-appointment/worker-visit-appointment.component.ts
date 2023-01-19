@@ -9,6 +9,9 @@ import {
   WorkerVisitAppointmentDialogComponent
 } from "./worker-visit-appointment-dialog/worker-visit-appointment-dialog.component";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z umawianiem wizyty dla pacjenta
+ */
 @Component({
   selector: 'app-worker-visit-appointment',
   templateUrl: './worker-visit-appointment.component.html',
@@ -48,6 +51,10 @@ export class WorkerVisitAppointmentComponent implements OnInit, OnDestroy {
     })
   }
 
+  /**
+   * Metoda służąca do wybierania użytkownika z tabeli dla którego maja zostać wyszukane skierowania
+   * @param userId
+   */
   chooseUserId(userId: string) {
     this.userId = userId;
     if (this.specialization()) {
@@ -74,6 +81,10 @@ export class WorkerVisitAppointmentComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe()
   }
 
+  /**
+   * Metoda służąca do wybierania skierowania
+   * @param id - id skierowania (bazodanowe)
+   */
   addRefferal(id: string) {
     if (id === this.refferalId) {
       this.refferalId = null;
@@ -82,9 +93,10 @@ export class WorkerVisitAppointmentComponent implements OnInit, OnDestroy {
     this.refferalId = id;
   }
 
+  /**
+   * Metoda slużąca do otwierania dialogu do wyboru wolnego terminu
+   */
   searchVisit() {
-
-    console.log(this.refferalId)
     this.dialog.open(WorkerVisitAppointmentDialogComponent, {
       data: {userId: this.userId, refferalId: this.refferalId},
       width: "100%",

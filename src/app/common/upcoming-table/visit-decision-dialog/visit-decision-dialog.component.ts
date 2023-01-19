@@ -7,6 +7,10 @@ import {Visit} from "../../../classes/visit/Visit";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z dialogiem
+ * akceptacji lub odrzucenia telewizyty przez pracownika
+ */
 @Component({
   selector: 'app-visit-decision-dialog',
   templateUrl: './visit-decision-dialog.component.html',

@@ -8,6 +8,9 @@ import {PeselValidator} from "../shared/validators/PeselValidator";
 import {first} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
 
+/**
+ * Klasa służąca do obsługi związanej z komoponentem do rejestracji
+ */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -52,6 +55,10 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  /**
+   * Metoda służąca do sprawdzenia czy hasło i powtórzone hasło są takie same
+   * @param matchTo - nazwa form control
+   */
   matchValues(
     matchTo: string // name of the control to match to
   ): (AbstractControl) => ValidationErrors | null {
@@ -67,6 +74,9 @@ export class RegisterComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
+  /**
+   * Metoda służąca do obsługi wysyłania requesta z rejestracją na serwer
+   */
   onSubmit() {
     this.submitted = true;
 

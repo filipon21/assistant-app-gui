@@ -36,6 +36,11 @@
           >Twoja historia</a>
         </li>
         <li class="nav-item menu-item">
+          <a class="nav-link active" aria-current="page" routerLink="/worker-add-visit" routerLinkActive="menu-item-active"
+             *ngIf="userService.roleMatch(['DOCTOR', 'ASSISTANT'])"
+          >Dodaj wolny termin</a>
+        </li>
+        <li class="nav-item menu-item">
           <a class="nav-link active" aria-current="page" routerLink="/user" routerLinkActive="menu-item-active"
              *ngIf="userService.roleMatch(['USER'])"
           >Panel pacjenta</a>

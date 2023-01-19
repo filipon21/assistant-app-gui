@@ -1,5 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Klasa służąca jako angularowy Pipe, który służy do zmiany
+ * wyświetlania enumu statusowego na polskie tłumaczenie
+ */
 @Pipe({
   name: 'status'
 })

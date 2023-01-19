@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {UserAuthService} from "../../_services/user-auth.service";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z komponentem do historii wizyt pracownika
+ */
 @Component({
   selector: 'app-worker-history',
   templateUrl: './worker-history.component.html',

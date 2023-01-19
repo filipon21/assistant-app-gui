@@ -3,6 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {Pagination} from "../classes/Pagination";
 import {Refferal} from "../classes/visit/Visit";
 
+/**
+ * Klasa służąca jako serwis do wysyłania zapytań HTTP na serwer dot. skierowań
+ */
 @Injectable({
   providedIn: 'root'
 })

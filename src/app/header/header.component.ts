@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { UserAuthService } from '../_services/user-auth.service';
 import { UserApiService } from '../_services/user-api.service';
 
+/**
+ * Klasa służąca do obsługi logiki związanej z górnym paskiem nawigacyjnym
+ */
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,10 +30,9 @@ export class HeaderComponent implements OnInit {
   public logout() {
     this.userService.setIsOnline('false', parseInt(this.userAuthService.getId()))
       .subscribe((data) => {
-      console.log(data)
-    })
-
-    this.userAuthService.clear();
+        console.log(data)
+        this.userAuthService.clear();
+      })
     this.router.navigate(['/login']);
   }
 

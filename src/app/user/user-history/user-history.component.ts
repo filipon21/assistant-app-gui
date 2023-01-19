@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 
 import {UserAuthService} from "../../_services/user-auth.service";
 
+/**
+ * Klasa służąca do obsługi związanej z
+ * komoponentem dotyczącaym historii dla pacjenta
+ */
 @Component({
   selector: 'app-user-history',
   templateUrl: './user-history.component.html',

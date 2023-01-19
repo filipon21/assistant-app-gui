@@ -9,6 +9,9 @@ import {User} from "../classes/user/User";
 import {SearchQueryVisit} from "../classes/visit/SearchQueryVisit";
 import {SearchQueryUser} from "../classes/user/SearchQueryUser";
 
+/**
+ * Klasa służąca jako serwis do wysyłania zapytań HTTP na serwer dot. użytkownika i związanych z nim akcji
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -307,5 +310,20 @@ export class UserApiService {
       chatLink: chatLink ? chatLink : null,
       visitStatusEnum: "STARTED",
     })
+  }
+
+  addVisit(value, id: string) {
+    const body = {
+      visitTypeEnum: value.visitTypeEnum,
+      visitStatusEnum: "FREE",
+      startTime: value.startTime,
+      address: value?.address
+    }
+    return this.httpclient.post(this.PATH_OF_API + this.URL_VISIT + "/"
+      + id, body)
+  }
+
+  getUserStartedVisit(id: string) {
+    return this.httpclient.get<Visit>(this.PATH_OF_API + this.URL_VISIT + '/started/'  + id);
   }
 }

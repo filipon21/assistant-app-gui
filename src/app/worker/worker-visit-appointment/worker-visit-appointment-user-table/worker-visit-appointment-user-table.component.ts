@@ -13,6 +13,9 @@ import {User} from "../../../classes/user/User";
 import {SearchQueryUser} from "../../../classes/user/SearchQueryUser";
 import {UserAuthService} from "../../../_services/user-auth.service";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z tabelą wizyt umówionych pacjenta
+ */
 @Component({
   selector: 'app-worker-visit-appointment-user-table',
   templateUrl: './worker-visit-appointment-user-table.component.html',

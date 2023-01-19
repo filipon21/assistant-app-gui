@@ -1,12 +1,14 @@
-import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PeselValidator} from 'src/app/shared/validators/PeselValidator';
 import {UserApiService} from "../../_services/user-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserAuthService} from "../../_services/user-auth.service";
 import {User} from "../../classes/user/User";
-import {UserService} from "../../_services/user.service";
 
+/**
+ * Klasa służąca do obsługi związanej z komoponentem z edycją konta użytkownika
+ */
 @Component({
   selector: 'app-user-account',
   templateUrl: './user-account.component.html',
@@ -21,7 +23,6 @@ export class UserAccountComponent implements OnInit{
     private userServiceApi: UserApiService,
     private snackBar: MatSnackBar,
     private userAuthService: UserAuthService,
-    private userService: UserService
   ) {
   }
 
@@ -32,7 +33,7 @@ export class UserAccountComponent implements OnInit{
         userFirstName: [this.user?.userFirstName ?? '', [Validators.required, Validators.maxLength(100)]],
         userLastName: [this.user?.userLastName ?? '', [Validators.required, Validators.maxLength(100)]],
         userName: [this.user?.userName ?? '', [Validators.email, Validators.required, Validators.maxLength(100)]],
-        phoneNumber: [this.user?.phoneNumber ?? '', [Validators.pattern(/([0-9])/i), Validators.required, Validators.maxLength(9),
+        phoneNumber: [this.user?.phoneNumber ?? '', [Validators.pattern(/([0-9])/i), Validators.required, Validators.maxLength(12),
           Validators.minLength(9)]],
         pesel: [this.user?.pesel ?? '', [Validators.required, Validators.maxLength(11), Validators.minLength(11), PeselValidator]],
         address: [this.user?.address ?? '', [Validators.required, Validators.maxLength(100)]],
@@ -44,6 +45,9 @@ export class UserAccountComponent implements OnInit{
     })
   }
 
+  /**
+   * Metoda śłużąca do wysyłania requesta na serwer z edycją konta
+   */
   saveAccount() {
     if (!this.validateInputs()) {
       return
@@ -58,6 +62,9 @@ export class UserAccountComponent implements OnInit{
     }
   }
 
+  /**
+   * Metoda służąca do sprawdzania czy wszystkie pola są poprawnie wypełnione
+   */
   validateInputs() {
     let validationErrorMessage = '';
 

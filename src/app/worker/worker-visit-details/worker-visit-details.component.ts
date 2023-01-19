@@ -9,6 +9,10 @@ import {DatePipe} from "@angular/common";
 import {WorkerVisitUserDetailsService} from "../../_services/worker-visit-user-details.service";
 import {User} from "../../classes/user/User";
 
+/**
+ * Klasa służąca do obsługi logiki związanej ze
+ * szczegółami nadchodzącej wizyty dla pracownika (wrapper)
+ */
 @Component({
   selector: 'app-worker-visit-details',
   templateUrl: './worker-visit-details.component.html',
@@ -25,6 +29,7 @@ export class WorkerVisitDetailsComponent implements OnInit {
     'visitTypeEnum', 'address', 'visitStatusEnum', 'actions'];
   elementId: any;
   user: User;
+  role: { id:string, roleName: string, roleDescription: string }[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,6 +44,7 @@ export class WorkerVisitDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.role = this.authService.getRoles()
     let id = this.route.snapshot.queryParamMap.get('visitId');
     let userTableId = this.route.snapshot.queryParamMap.get('userTableId');
     if (!id){
@@ -65,6 +71,9 @@ export class WorkerVisitDetailsComponent implements OnInit {
     })
   }
 
+  /**
+   * Metoda służąca do kończenia wizyty i wysyłania danych o wizycie na serwer
+   */
   onSubmit() {
     let now = Date.now()
     if (this.formGroup.invalid){
@@ -94,6 +103,11 @@ export class WorkerVisitDetailsComponent implements OnInit {
 
   }
 
+  /**
+   * Metoda służąca do wybrania danego rekordu z tabeli historii wizyt, aby
+   * zobaczyć jej szczegóły
+   * @param $event - id wizyty
+   */
   onElementClick($event: string) {
     this.elementId = $event;
     this.visitService.updateApprovalMessage(this.elementId);

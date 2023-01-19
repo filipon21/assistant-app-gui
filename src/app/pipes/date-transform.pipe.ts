@@ -1,6 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {DatePipe} from "@angular/common";
 
+/**
+ * Klasa służąca jako angularowy Pipe, który służy do zmiany
+ * wyświetlania daty w odpowiednim formacie
+ */
 @Pipe({
   name: 'dateTransform'
 })

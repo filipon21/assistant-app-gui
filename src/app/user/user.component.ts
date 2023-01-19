@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z komopnentem z panelem pacjenta
+ */
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',

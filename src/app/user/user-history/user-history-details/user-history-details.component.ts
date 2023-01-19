@@ -6,18 +6,21 @@ import {FileService} from "../../../_services/file.service";
 import {take} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
 
+/**
+ * Klasa służąca do obsługi związanej z
+ * komoponentem szczegółów historii dla pacjenta
+ */
 @Component({
   selector: 'app-user-history-details',
   templateUrl: './user-history-details.component.html',
   styleUrls: ['./user-history-details.component.css']
 })
-export class UserHistoryDetailsComponent implements OnInit, OnDestroy {
+export class UserHistoryDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
     private userApiService: UserApiService,
     private fileApiService: FileService,
-    private datePipe: DatePipe
   ) {
   }
 
@@ -44,10 +47,6 @@ export class UserHistoryDetailsComponent implements OnInit, OnDestroy {
     });
     visit.users = user
     return visit
-  }
-
-  ngOnDestroy(): void {
-
   }
 
   downloadPrescription() {

@@ -193,6 +193,9 @@
                 <button class="accept-btn" mat-button (click)="acceptVisit(element)">Akceptuj</button>
                 <button class=reject-btn mat-button (click)="rejectVisit(element)">Odrzuć</button>
               </ng-container>
+              <ng-container *ngIf="!worker && element.visitStatusEnum === 'WAITING'">
+                <button class="reject-btn" mat-button (click)="cancelVisit(element)">Odwołaj</button>
+              </ng-container>
               <ng-container *ngIf="!worker && element.visitStatusEnum === 'UPCOMING'
               && !checkIfVisitStarted(element.startTime)">
                 <button class="reject-btn" mat-button (click)="cancelVisit(element)">Odwołaj</button>

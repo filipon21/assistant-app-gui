@@ -1,5 +1,8 @@
 import {FormGroup, ValidationErrors, ValidatorFn} from "@angular/forms";
 
+/**
+ * Funkcja do obsługi walidacji numeru PESEL
+ */
 export const PeselValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
   const arrayLetters = (control.value || '').split("");
   let sum = arrayLetters[0] * 1 + arrayLetters[1] * 3 + arrayLetters[2] * 7 + arrayLetters[3] * 9 + arrayLetters[4] * 1 +

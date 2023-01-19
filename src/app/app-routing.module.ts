@@ -22,6 +22,7 @@ import {WorkerHistoryComponent} from "./worker/worker-history/worker-history.com
 import {
   WorkerVisitUserDetailsComponent
 } from "./worker/worker-visit-details/worker-visit-user-details/worker-visit-user-details.component";
+import {WorkerAddVisitComponent} from "./worker/worker-add-visit/worker-add-visit.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -47,6 +48,8 @@ const routes: Routes = [
     data:{roles:['ASSISTANT', 'DOCTOR']} },
   { path: 'worker-visit-cancel', component: WorkerVisitCancelComponent ,  canActivate:[AuthGuard],
     data:{roles:['ASSISTANT', 'DOCTOR']} },
+  { path: 'worker-add-visit', component: WorkerAddVisitComponent ,  canActivate:[AuthGuard],
+    data:{roles:['DOCTOR', 'ASSISTANT']} },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forbidden', component: ForbiddenComponent },

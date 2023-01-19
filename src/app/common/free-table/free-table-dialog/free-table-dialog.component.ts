@@ -4,6 +4,9 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 
+/**
+ * Klasa służąca do obsługi dialogu związanego z komoponentem z wolnymi wizytami (potwierdzenie)
+ */
 @Component({
   selector: 'app-free-table-dialog',
   templateUrl: './free-table-dialog.component.html',
@@ -34,8 +37,10 @@ export class FreeTableDialogComponent implements OnInit {
     }
   }
 
+  /**
+   * Metoda służąca do dodawania użytkownika do wolnej wizyty
+   */
   makeAnApointment() {
-    console.log(this.refferalId)
     if (this.refferalId) {
       this.userApiService.addUserToVisit(this.userId, this.refferalId, this.visitId).subscribe(value => {
           console.log(value)
@@ -43,12 +48,13 @@ export class FreeTableDialogComponent implements OnInit {
 
         },
         error => {
-          this.snackBar.open("Nie wybrano skierowania lub wybrane skierowanie nie jest do tego lekarza!",
+          this.snackBar.open("Wizyta jest już zajęta",
             null, {
               verticalPosition: "top",
               duration: 2000,
               panelClass: "error-snackbar"
             })
+          this.ref.close(true)
         })
     }else{
       this.userApiService.addUserToVisitWithoutParams(this.userId, this.visitId).subscribe(value => {
@@ -57,18 +63,18 @@ export class FreeTableDialogComponent implements OnInit {
 
         },
         error => {
-          this.snackBar.open("Nie wybrano skierowania lub wybrane skierowanie nie jest do tego lekarza!",
+          this.snackBar.open("Wizyta jest już zajęta!",
             null, {
               verticalPosition: "top",
               duration: 2000,
               panelClass: "error-snackbar"
             })
         })
+      this.ref.close(true)
     }
   }
 
   close() {
-    console.log(this.refferalId)
     this.ref.close()
   }
 }

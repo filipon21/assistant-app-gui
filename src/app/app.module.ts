@@ -71,6 +71,8 @@ import { UpcomingTableDialogComponent } from './common/upcoming-table/upcoming-t
 import { WorkerDrugsComponent } from './worker/worker-drugs/worker-drugs.component';
 import { WorkerHistoryComponent } from './worker/worker-history/worker-history.component';
 import { VisitDecisionDialogComponent } from './common/upcoming-table/visit-decision-dialog/visit-decision-dialog.component';
+import { WorkerAddVisitComponent } from './worker/worker-add-visit/worker-add-visit.component';
+import { UpcomingTableStartVisitComponent } from './common/upcoming-table/upcoming-table-start-visit/upcoming-table-start-visit.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +114,8 @@ import { VisitDecisionDialogComponent } from './common/upcoming-table/visit-deci
     WorkerDrugsComponent,
     WorkerHistoryComponent,
     VisitDecisionDialogComponent,
+    WorkerAddVisitComponent,
+    UpcomingTableStartVisitComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,9 @@ import {UserAuthService} from '../_services/user-auth.service';
 import {UserApiService} from '../_services/user-api.service';
 import {MatSnackBar} from "@angular/material/snack-bar";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z formularzem do logowania
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

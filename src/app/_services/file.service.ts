@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
+/**
+ * Klasa służąca jako serwis do wysyłania zapytań HTTP na serwer dot. plików z e-Receptą
+ */
 @Injectable({
   providedIn: 'root'
 })

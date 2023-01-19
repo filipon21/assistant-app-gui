@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {UserAuthService} from "../../_services/user-auth.service";
 
+/**
+ * Klasa służąca do obsługi związanej z
+ * komoponentem dotyczącaym nadchodzących wizyt dla pacjenta
+ */
 @Component({
   selector: 'app-user-upcoming',
   templateUrl: './user-upcoming.component.html',

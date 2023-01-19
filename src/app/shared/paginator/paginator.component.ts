@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
+/**
+ * Klasa służąca do obsługi związanej z komoponentem do paginacji tabel
+ */
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',

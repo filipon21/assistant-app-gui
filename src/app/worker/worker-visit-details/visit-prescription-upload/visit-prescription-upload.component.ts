@@ -7,6 +7,9 @@ import {finalize, take} from "rxjs/operators";
 import {HttpEventType} from "@angular/common/http";
 import {Prescription} from "../../../classes/visit/Visit";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z e-Receptami
+ */
 @Component({
   selector: 'app-visit-prescription-upload',
   templateUrl: './visit-prescription-upload.component.html',
@@ -32,6 +35,9 @@ export class VisitPrescriptionUploadComponent implements OnInit {
   uploadSub: Subscription;
   code: any;
 
+  /**
+   * Metoda służąca do wybierania pliku z selektora plików oraz wysyłania go na serwer
+   */
   onFileSelected(event) {
     const file: File = event.target.files[0];
     if (file.type !== 'image/jpeg' && file.type !== 'image/png'
@@ -66,16 +72,25 @@ export class VisitPrescriptionUploadComponent implements OnInit {
     }
   }
 
+  /**
+   * Metoda służąca do przerwania wysyłania pliku na serwer
+   */
   cancelUpload() {
     this.uploadSub.unsubscribe();
     this.reset();
   }
 
+  /**
+   * Metoda służąca do resetowania aktualnego pliku
+   */
   reset() {
     this.uploadProgress = null;
     this.uploadSub = null;
   }
 
+  /**
+   * Metoda służąca do pobierania pliku z serwera
+   */
   downloadPrescription() {
     this.fileApiService.downloadFile(this.prescription.fileCode)
       .pipe(take(1))

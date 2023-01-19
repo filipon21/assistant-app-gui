@@ -4,6 +4,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ExemptionApiService} from "../../../_services/exemption-api.service";
 import {DatePipe} from "@angular/common";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z wystawianiem zwolnień
+ */
 @Component({
   selector: 'app-worker-visit-exemption',
   templateUrl: './worker-visit-exemption.component.html',
@@ -32,6 +35,9 @@ export class WorkerVisitExemptionComponent implements OnInit {
     })
   }
 
+  /**
+   * Metoda służąca do tworzenia zwolnienia i wysyłania go na serwer
+   */
   onSubmit() {
     let startTime = this.form.get('startTime').value;
     let endTime = this.form.get('endTime').value;

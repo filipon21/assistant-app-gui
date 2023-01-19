@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Klasa służąca jako serwis do zapisywania w pamięci przeglądarki roli aktualnego użytkownika, tokenu, id itd.
+ */
 @Injectable({
   providedIn: 'root',
 })

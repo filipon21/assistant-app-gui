@@ -92,7 +92,8 @@
                     Lp.
                 </span>
             </mat-header-cell>
-            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''" *matCellDef="let element; let i = renderIndex">
+            <mat-cell [ngClass]="biggerFont ? 'bigger-font-cell' : ''"
+                      *matCellDef="let element; let i = renderIndex">
               {{calcOrderNumber(i)}} </mat-cell>
           </ng-container>
 

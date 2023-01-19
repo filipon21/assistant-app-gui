@@ -5,9 +5,12 @@ import {UserAuthService} from "../../_services/user-auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Visit} from "../../classes/visit/Visit";
 import {interval, Subscription} from "rxjs";
-import {Timestamp} from "rxjs/internal-compatibility";
 import {DatePipe} from "@angular/common";
 
+/**
+ * Klasa służąca do obsługi związanej z
+ * komoponentem dotyczącaym aktualnej telewizyty dla pacjenta
+ */
 @Component({
   selector: 'app-user-visit',
   templateUrl: './user-visit.component.html',
@@ -44,9 +47,12 @@ export class UserVisitComponent implements OnInit, OnDestroy {
         this.getData();
       }
     );
-
   }
 
+  /**
+   * Metoda służąca do utworzenia wizyty na telefonicznej poprzez wysłanie odpowiedniego
+   * requesta na serwer
+   */
   createPhoneVisit() {
     if (this.visit) {
       return
@@ -56,16 +62,12 @@ export class UserVisitComponent implements OnInit, OnDestroy {
         this.datePipe.transform(now,
           "yyyy-MM-ddTHH:mm:ss"), 'WAITING').subscribe(
         value => {
-          // this.templateService.setTemplate(value);
-          // localStorage.setItem('templateId', JSON.stringify(value.id));
           this.visit = value;
           this.snackBar.open("Utworzono wizytę", '', {
             duration: 5000,
             panelClass: ['multiline-snackbar', 'snackbarStyle']
           });
           this.view = 'WAITING';
-          // localStorage.setItem('visitId', JSON.stringify(value.id));
-          // localStorage.setItem('assistantId', this.assistantId);
         })
     }
   }
@@ -85,17 +87,14 @@ export class UserVisitComponent implements OnInit, OnDestroy {
       this.visit = value;
       if (this.visit.visitStatusEnum === 'STARTED' &&
       this.visit.visitTypeEnum === 'PHONE') {
-        console.log(value)
         let obj = value.users
           .find((obj => obj.roles[0].roleName !== 'USER'));
 
         this.phoneNumber = obj.phoneNumber;
-        // this.router.navigate(['/user-current-visit'],
-        //   {queryParams:{hostId: obj.id, visitId: value.id}});
         this.view = 'STARTED';
       }
       if (this.visit.visitStatusEnum === 'STARTED' &&
-        this.visit.visitTypeEnum === 'CHAT') {
+        this.visit.visitTypeEnum === 'CHAT' && this.view !== 'STARTED') {
 
         this.chat = this.visit.chatLink
         window.open(this.visit.chatLink, "_blank");
@@ -105,22 +104,6 @@ export class UserVisitComponent implements OnInit, OnDestroy {
       if (this.visit.visitStatusEnum === 'WAITING') {
         this.view = 'WAITING';
       }
-      // if (this.visit.visitStatusEnum === 'ENDED') {
-      //   this.visit = null;
-      //   this.snackBar.open("Zakończono telewizytę", '', {
-      //     duration: 5000,
-      //     panelClass: ['multiline-snackbar', 'snackbarStyle']
-      //   });
-      //   this.router.navigate(['/assistant-list'])
-      // }
-      // if (this.visit.visitStatusEnum === 'REJECTED') {
-      //   this.visit = null;
-      //   this.snackBar.open("Telewizyta odrzucona przez asystenta", '', {
-      //     duration: 5000,
-      //     panelClass: ['multiline-snackbar', 'snackbarStyle']
-      //   });
-      //   this.router.navigate(['/assistant-list'])
-      // }
     })
   }
 
@@ -128,6 +111,10 @@ export class UserVisitComponent implements OnInit, OnDestroy {
     this.visitSubscription.unsubscribe();
   }
 
+  /**
+   * Metoda służąca do utworzenia wizyty na czacie poprzez wysłanie odpowiedniego
+   * requesta na serwer
+   */
   createChatVisit() {
     if (this.visit) {
       return
@@ -137,20 +124,19 @@ export class UserVisitComponent implements OnInit, OnDestroy {
         this.datePipe.transform(now,
           "yyyy-MM-ddTHH:mm:ss"), 'WAITING').subscribe(
         value => {
-          // this.templateService.setTemplate(value);
-          // localStorage.setItem('templateId', JSON.stringify(value.id));
           this.visit = value;
           this.snackBar.open("Utworzono wizytę", '', {
             duration: 5000,
             panelClass: ['multiline-snackbar', 'snackbarStyle']
           });
           this.view = 'WAITING';
-          // localStorage.setItem('visitId', JSON.stringify(value.id));
-          // localStorage.setItem('assistantId', this.assistantId);
         })
     }
   }
 
+  /**
+   * Metoda służąca do otwarcia osobnego okna z czatem
+   */
   goToLink(url: any) {
     window.open(url, "_blank");
   }

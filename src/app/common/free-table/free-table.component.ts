@@ -17,6 +17,9 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {FreeTableDialogComponent} from "./free-table-dialog/free-table-dialog.component";
 import {VisitService} from "../../classes/visit/visit.service";
 
+/**
+ * Klasa służąca do obsługi związanej z komoponentem tabeli z wolnymi wizytami
+ */
 @Component({
   selector: 'app-free-table',
   templateUrl: './free-table.component.html',
@@ -136,17 +139,26 @@ export class FreeTableComponent implements OnInit {
    this.visitTableList = this.visitService.dataArrayFilter(array, this.ifWorker)
   }
 
+  /**
+   * Metoda służąca do zmiany strony w tabeli
+   */
   changePage($event) {
     this.pagination.page = $event - 1;
     this.getData();
   }
 
+  /**
+   * Metoda służąca do zmiany ilości wyświetlanych elementów w tabeli na stronę
+   */
   changePageSize($event) {
     this.pagination.page = 0;
     this.pagination.size = $event;
     this.getData();
   }
 
+  /**
+   * Metoda służąca do sortowania elementów w tabeli
+   */
   sort(columnToSort: string) {
     this.sortObject.sort(columnToSort);
     this.pagination.page = 0;
@@ -155,6 +167,9 @@ export class FreeTableComponent implements OnInit {
     this.getData();
   }
 
+  /**
+   * Metoda służąca do wysłania zapytania na serwer o zwrot danych z listą wizyt
+   */
   getData() {
     if (this.checkIfSearchIsClear()) {
       this.userServiceApi.getFreeVisitList(this.pagination).subscribe((data) => {
@@ -176,10 +191,16 @@ export class FreeTableComponent implements OnInit {
     }
   }
 
+  /**
+   * Metoda służąca do obliczania liczby porządkowej w tabeli
+   */
   calcOrderNumber(indexOfElement) {
     return (this.currentPage - 1) * this.pagination.size + indexOfElement + 1
   }
 
+  /**
+   * Metoda służąca do sprawdzenia czy pola z filtracją są puste
+   */
   checkIfSearchIsClear() {
     let val1 = this.searchVisit.get('visitTypeEnum').pristine;
     let val2 = this.searchVisit.get('visitStatusEnum').pristine;
@@ -190,11 +211,17 @@ export class FreeTableComponent implements OnInit {
     return val1 || val2 || val3 || val4 || val5;
   }
 
+  /**
+   * Metoda służąca do otworzenia dialogu z wolnymi wiytami
+   * @param element - id użytkownika
+   */
   addUserToVisit(element) {
-    if (this.specialization != element.worker && element.worker != "INTERNIST") {
+    if (this.specialization !== element.worker && element.worker !== "INTERNIST"
+      && element.worker !== "ASSISTANT") {
       this.snackBar.open("Nie wybrano lekarza o specjalizacji ze skierowania!",
         null, {
           verticalPosition: "top",
+          duration: 2000,
           panelClass: "error-snackbar"
         })
     } else {
@@ -210,6 +237,10 @@ export class FreeTableComponent implements OnInit {
     }
   }
 
+  /**
+   * Metoda służąca do znalezienia id po danej specjalizacji
+   * @param specialization - specjalizacaj (String)
+   */
   private findDoctor(specialization: string) {
     if (specialization === 'CARDIOLOGIST') {
       this.searchVisit.patchValue({doctorId: '1'})

@@ -11,6 +11,9 @@ import { Observable, throwError } from 'rxjs';
 import { UserAuthService } from '../_services/user-auth.service';
 import { Injectable } from '@angular/core';
 
+/**
+ * Klasa służąca do sprawdzania tokena i interpretacji, czy jest zezwolona autoryzacja
+ */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private userAuthService: UserAuthService,
@@ -46,6 +49,11 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
 
+  /**
+   * Metoda służąca do dodawania nagłówka z tokenem do requesta
+   * @param request - request HTTP
+   * @param token - JSON WEB TOKEN
+   */
   private addToken(request:HttpRequest<any>, token:string) {
     return request.clone(
       {

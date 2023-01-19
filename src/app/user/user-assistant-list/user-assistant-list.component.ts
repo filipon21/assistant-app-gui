@@ -12,6 +12,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {debounceTime} from "rxjs/operators";
 import {UserAuthService} from "../../_services/user-auth.service";
 
+/**
+ * Klasa służąca do obsługi związanej z komoponentem z listą asystentów
+ */
 @Component({
   selector: 'app-user-assistant-list',
   templateUrl: './user-assistant-list.component.html',
@@ -79,17 +82,26 @@ export class UserAssistantListComponent implements OnInit {
     this.sub = interval(60*1000/2).subscribe(() => this.getData());
   }
 
+  /**
+   * Metoda służąca do zmiany strony w tabeli
+   */
   changePage($event) {
     this.pagination.page = $event - 1;
     this.getData();
   }
 
+  /**
+   * Metoda służąca do zmiany ilości wyświetlanych elementów w tabeli na stronę
+   */
   changePageSize($event) {
     this.pagination.page = 0;
     this.pagination.size = $event;
     this.getData();
   }
 
+  /**
+   * Metoda służąca do sortowania elementów w tabeli
+   */
   sort(columnToSort: string) {
     this.sortObject.sort(columnToSort);
     this.pagination.page = 0;
@@ -98,6 +110,9 @@ export class UserAssistantListComponent implements OnInit {
     this.getData();
   }
 
+  /**
+   * Metoda służąca do wysłania zapytania na serwer o zwrot danych z listą asystetnów
+   */
   getData() {
     if (!this.isSearchBarVisibile) {
       this.userServiceApi.getAssistantList(this.pagination).subscribe((data) => {

@@ -3,7 +3,12 @@ import {UserApiService} from "../../../_services/user-api.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
+import {DatePipe} from "@angular/common";
 
+/**
+ * Klasa służąca do obsługi logiki związanej z dialogiem
+ * do odwołania wizyty (pacjent)
+ */
 @Component({
   selector: 'app-upcoming-table-dialog',
   templateUrl: './upcoming-table-dialog.component.html',
@@ -17,6 +22,7 @@ export class UpcomingTableDialogComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private ref: MatDialogRef<UpcomingTableDialogComponent>,
+    private datePipe: DatePipe,
   ) {
   }
 
@@ -35,20 +41,33 @@ export class UpcomingTableDialogComponent implements OnInit {
   }
 
   cancelVisit() {
-    console.log(this.refferalId)
-      this.userApiService.cancelVisit(this.visitId, this.refferalId, this.userId).subscribe(value => {
-          console.log(value)
+    if (this.data.status === 'WAITING'){
+      let now = Date.now();
+      this.userApiService.rejectVisit(this.visitId, this.datePipe.transform(now,
+        "yyyy-MM-ddTHH:mm:ss")).subscribe(value => {
           this.ref.close(true)
-
         },
         error => {
-          this.snackBar.open("Nie udało się odwołać wizyty!",
+          this.snackBar.open("Nie udało się odwołać wizyty! " + error,
             null, {
               verticalPosition: "top",
               duration: 2000,
               panelClass: "error-snackbar"
             })
         })
+    }else {
+      this.userApiService.cancelVisit(this.visitId, this.refferalId, this.userId).subscribe(value => {
+          this.ref.close(true)
+        },
+        error => {
+          this.snackBar.open("Nie udało się odwołać wizyty! " + error,
+            null, {
+              verticalPosition: "top",
+              duration: 2000,
+              panelClass: "error-snackbar"
+            })
+        })
+    }
   }
 
   close() {

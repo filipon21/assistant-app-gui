@@ -15,6 +15,9 @@ import {debounceTime} from "rxjs/operators";
 import {Visit} from "../../classes/visit/Visit";
 import {VisitService} from "../../classes/visit/visit.service";
 
+/**
+ * Klasa służąca do obsługi związanej z komoponentem z historią wizyt
+ */
 @Component({
   selector: 'app-history-table',
   templateUrl: './history-table.component.html',
@@ -73,7 +76,6 @@ export class HistoryTableComponent implements OnInit {
       endTime: [''],
       address: ['']
     })
-    this.checkIfSearchIsClear()
     this.searchSubscription = this.searchVisit.valueChanges.pipe(
       debounceTime(700)
     ).subscribe(() => {
@@ -119,17 +121,26 @@ export class HistoryTableComponent implements OnInit {
     this.visitTableList = this.visitService.dataArrayFilter(array, this.ifWorker)
   }
 
+  /**
+   * Metoda służąca do zmiany strony w tabeli
+   */
   changePage($event) {
     this.pagination.page = $event - 1;
     this.getData();
   }
 
+  /**
+   * Metoda służąca do zmiany ilości wyświetlanych elementów w tabeli na stronę
+   */
   changePageSize($event) {
     this.pagination.page = 0;
     this.pagination.size = $event;
     this.getData();
   }
 
+  /**
+   * Metoda służąca do sortowania elementów w tabeli
+   */
   sort(columnToSort: string) {
     this.sortObject.sort(columnToSort);
     this.pagination.page = 0;
@@ -138,6 +149,9 @@ export class HistoryTableComponent implements OnInit {
     this.getData();
   }
 
+  /**
+   * Metoda służąca do wysłania zapytania na serwer o zwrot danych z listą wizyt
+   */
   getData() {
     if (this.checkIfSearchIsClear()) {
       this.userServiceApi.getVisitList(this.pagination, this.userId).subscribe((data) => {
@@ -163,6 +177,9 @@ export class HistoryTableComponent implements OnInit {
     return (this.currentPage - 1) * this.pagination.size + indexOfElement + 1
   }
 
+  /**
+   * Metoda służąca do sprawdzenia czy pola z filtracją są puste
+   */
   checkIfSearchIsClear() {
     let val1 = this.searchVisit.get('visitTypeEnum').pristine;
     let val2 = this.searchVisit.get('visitStatusEnum').pristine;
@@ -173,8 +190,10 @@ export class HistoryTableComponent implements OnInit {
     return val1 || val2 || val3 || val4 || val5;
   }
 
+  /**
+   * Metoda służąca do przejścia na stronę ze szczegółami wizyty
+   */
   goToVisitDetails(element) {
-    console.log("ele")
     console.log(element.id)
     if (this.userHistoryDetailsView){
       this.elementEvent.emit(element.id);

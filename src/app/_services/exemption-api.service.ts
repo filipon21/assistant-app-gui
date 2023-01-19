@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
+/**
+ * Klasa służąca jako serwis do wysyłania zapytań HTTP na serwer dot. zwolnień
+ */
 @Injectable({
   providedIn: 'root'
 })

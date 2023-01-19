@@ -1,5 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Klasa służąca jako angularowy Pipe, który służy do zmiany
+ * wyświetlania enumu typu wizyty na polskie tłumaczenie
+ */
 @Pipe({
   name: 'type'
 })
